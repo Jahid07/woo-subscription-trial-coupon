@@ -5,13 +5,13 @@
 > 1. [**Woocommerce**](https://wordpress.org/plugins/woocommerce/)
 > 2. [**Woocommerce Subscriptions**](https://woocommerce.com/products/woocommerce-subscriptions/)
 
-> Features: 
+> ## Features: 
 > 1. Add new coupon type "Subscription Trial"
-> 2. Work with woocommerce subscriptions products
-> 3. Work with coupon type Sign Up Fee Discount
-> 4. Work with coupon type Sign Up Fee % Discount
-> 5. Work with coupon type Recurring Product Discount
-> 6. Work with coupon type Recurring Product % Discount
+> 1. Work with woocommerce subscriptions products
+> 1. Work with coupon type Sign Up Fee Discount
+> 1. Work with coupon type Sign Up Fee % Discount
+> 1. Work with coupon type Recurring Product Discount
+> 1. Work with coupon type Recurring Product % Discount
 
 ## Screenshots
 
