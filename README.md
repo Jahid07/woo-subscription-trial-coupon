@@ -1,7 +1,7 @@
 # Free Trial Coupon for Woocommerce Subscriptions
 **Free Trial Coupon for Woocommerce Subscriptions** will add a coupon type & option in Woocommerce coupon filed to extend the default trial period of subscription product. This plugin will work with only if you have activate Woocommerce & Woocomerce Subscription plugins.
 
-> Requires Plugins:
+## >   Requires Plugins:
 > 1. [**Woocommerce**](https://wordpress.org/plugins/woocommerce/)
 > 2. [**Woocommerce Subscriptions**](https://woocommerce.com/products/woocommerce-subscriptions/)
 
@@ -38,7 +38,7 @@ Go to Wordpress dashboard>woocommerce>coupon
 
 ## How to install
 
-# Through Dashboard
+### Through Dashboard
 
 1. Log in to your WordPress admin panel and go to Plugins -> Add New
 1. Type **Free Trial length Coupon for Woocommerce Subscription** in the search box and click on search button.
@@ -46,7 +46,7 @@ Go to Wordpress dashboard>woocommerce>coupon
 1. Then click on Install Now after that activate the plugin.
 1. Click on setting button & add your logo form theme customizer.
 
-# Installing Via FTP
+### Installing Via FTP
 
 1. Download the plugin to your hard disk.
 1. Unzip.
