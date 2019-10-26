@@ -12,3 +12,7 @@
 > 4. Work with coupon type Sign Up Fee % Discount
 > 5. Work with coupon type Recurring Product Discount
 > 6. Work with coupon type Recurring Product % Discount
+
+##Screenshots
+![view](https://ps.w.org/woo-subscription-trial-coupon/assets/screenshot-1.png?rev=2180006)
+Go to Wordpress dashboard>woocommerce>coupon
