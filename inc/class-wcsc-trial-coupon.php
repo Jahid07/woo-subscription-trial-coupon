@@ -39,7 +39,7 @@ class WCSC_Trial_Coupon{
     }
 
     /**
-     * load css & script for
+     * JS for Woocommerce Coupon Meta Box
      * @param $discount_types
      */
     public static function enqueue_style_script()
