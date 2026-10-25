@@ -1,0 +1,63 @@
+# Copyright (C) 2024 Jahid
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Free Trial Coupon for Woocommerce Subscriptions 2.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woo-subscription-trial-coupon\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-09-24T11:01:59+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.9.0\n"
+"X-Domain: WooSubscriptionTrialCoupon\n"
+
+#. Plugin Name of the plugin
+msgid "Free Trial Coupon for Woocommerce Subscriptions"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://jahid.co/plugins"
+msgstr ""
+
+#. Description of the plugin
+msgid "Wooc Subscription Trial Coupon will add option in Woocommerce coupon filed. This plugin will work with only if you have activate Woocommerce & Woocomerce Subscription enabled"
+msgstr ""
+
+#. Author of the plugin
+msgid "Jahid"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://jahid.co"
+msgstr ""
+
+#: Classes/Admin/TrialCoupon.php:71
+msgid "Free trial"
+msgstr ""
+
+#: Classes/Admin/TrialCoupon.php:76
+msgid "Subscription Trial Period"
+msgstr ""
+
+#: Classes/Admin/TrialCoupon.php:87
+msgid "An optional period of time to wait before charging the first recurring payment. Any sign up fee will still be charged at the outset of the subscription"
+msgstr ""
+
+#: Classes/FrontEnd/RedeemCoupon.php:101
+msgid "This coupon is only valid if there is a subscription product in the cart."
+msgstr ""
+
+#: Classes/FrontEnd/RedeemCoupon.php:141
+msgid "Free Trial"
+msgstr ""
+
+#: Classes/FrontEnd/RedeemCoupon.php:152
+msgid "%d %s "
+msgstr ""
+
+#: Classes/FrontEnd/RedeemCoupon.php:154
+msgid "Free Trial Period"
+msgstr ""

@@ -2,7 +2,9 @@ jQuery( document ).ready( function( $ ) {
 	'use strict';
 
 	var renewals_field = document.querySelector( '.subscription_coupon_trial_length_field' ),
-		$renewals_field = $( renewals_field );
+		$renewals_field = $( renewals_field ),
+		coupon_amount_field = document.querySelector( '.coupon_amount_field' ),
+		$coupon_amount_field = $( coupon_amount_field );
 
 	/**
 	 * Subscription coupon actions.
@@ -29,15 +31,21 @@ jQuery( document ).ready( function( $ ) {
 
 			switch ( select_val ) {
 				case 'subscription_trial':
-				case 'recurring_fee':
-				case 'recurring_percent':
+					$renewals_field.show();
+					$coupon_amount_field.hide();  // Hide the coupon amount field for subscription trial
+					break;
+
+				//case 'recurring_fee':
+				//case 'recurring_percent':
 				case 'sign_up_fee':
 				case 'sign_up_fee_percent':
 					$renewals_field.show();
+					$coupon_amount_field.show();  // Show the coupon amount field for other types
 					break;
 
 				default:
 					$renewals_field.hide();
+					$coupon_amount_field.show();  // Show the coupon amount field by default
 					break;
 			}
 		},
@@ -54,4 +62,4 @@ jQuery( document ).ready( function( $ ) {
 	};
 
 	wcs_meta_boxes_coupon_actions.init();
-} );
+});

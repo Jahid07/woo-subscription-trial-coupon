@@ -1,59 +1,33 @@
-# Free Trial Coupon for Woocommerce Subscriptions
-**Free Trial Coupon for Woocommerce Subscriptions** will add a coupon type & option in Woocommerce coupon filed to extend the default trial period of subscription product. This plugin will work with only if you have activate Woocommerce & Woocomerce Subscription plugins.
+# Woo Subscription Trial Coupon
 
-#### Note
+[WordPress.org](https://wordpress.org/plugins/woo-subscription-trial-coupon/) · [Issues](https://github.com/Jahid07/woo-subscription-trial-coupon/issues)
 
-You can download  [**Free Trial Coupon for Woocommerce Subscriptions**](https://wordpress.org/plugins/logo-switcher-divi/) plugin from [**WordPress.org**](https://wordpress.org/plugins/woo-subscription-trial-coupon/) plugin repository 
+Development source for the existing WordPress.org plugin. The published **2.0.1** package was imported as a separate baseline commit on 2026-10-25. Earlier Git history is preserved. WordPress.org publishing remains disabled during development setup.
 
-> ## Requires Plugins:
-> 1. [**Woocommerce**](https://wordpress.org/plugins/woocommerce/)
-> 2. [**Woocommerce Subscriptions**](https://woocommerce.com/products/woocommerce-subscriptions/)
+## Local development
 
-> ## Features: 
-> 1. Add new coupon type "Subscription Trial"
-> 1. Work with woocommerce subscriptions products
-> 1. Work with coupon type Sign Up Fee Discount
-> 1. Work with coupon type Sign Up Fee % Discount
-> 1. Work with coupon type Recurring Product Discount
-> 1. Work with coupon type Recurring Product % Discount
+Prerequisites: Docker Desktop running, Node 24, Composer, PHP CLI, and `zip`/`unzip`.
 
-## Screenshots
+```sh
+composer install
+npm ci
+npx playwright install chromium
+npm run demo:seed
+npm run test:php
+npm run test:e2e
+```
 
+Open [the development website](http://localhost:8910) and log in with `admin` / `password`. The realistic demo is persistent; browser tests use a separate resettable site on port 8912. PHPUnit also has its own database on port 8911.
 
-Go to Wordpress dashboard>woocommerce>coupon
+See [demo websites and private dependencies](docs/demo.md) for content, refresh behavior, extra profiles and premium integration commands. `npm run env:stop` stops the default development site.
 
-1. Go to Wordpress dashboard>woocommerce>coupon 
-![view](https://ps.w.org/woo-subscription-trial-coupon/assets/screenshot-1.png?rev=2180006)
+```sh
+composer lint:syntax
+composer lint
+npm run check:release
+npm run build
+```
 
-2. Create new coupon
-![create](https://ps.w.org/woo-subscription-trial-coupon/assets/screenshot-2.png?rev=2180006)
+The build creates `dist/woo-subscription-trial-coupon-2.0.1.zip` with a production-only Composer autoloader and verifies development/private files are excluded. Existing WordPress/PHPCompatibility findings are tracked in `phpcs-baseline.json`; checks block increases. Compatibility claims must reflect actual recorded test versions.
 
-3. Select coupon type "Subscription Trial"
-![Select](https://ps.w.org/woo-subscription-trial-coupon/assets/screenshot-3.png?rev=2180006)
-
-4. In put your free trial length & period in "Free Trial" filed
-![Add Filed](https://ps.w.org/woo-subscription-trial-coupon/assets/screenshot-4.png?rev=2180006)
-
-5. Before apply coupon code
-![view](https://ps.w.org/woo-subscription-trial-coupon/assets/screenshot-5.png?rev=2180006)
-
-6. After applied coupon code
-![view](https://ps.w.org/woo-subscription-trial-coupon/assets/screenshot-6.png?rev=2180006)
-
-## How to install
-
-### Through Dashboard
-
-1. Log in to your WordPress admin panel and go to Plugins -> Add New
-1. Type **Free Trial length Coupon for Woocommerce Subscription** in the search box and click on search button.
-1. Find 'Free Trial length Coupon for Woocommerce Subscription' plugin.
-1. Then click on Install Now after that activate the plugin.
-1. Click on setting button & add your logo form theme customizer.
-
-### Installing Via FTP
-
-1. Download the plugin to your hard disk.
-1. Unzip.
-1. Upload the "woo-subscription-trial-coupon.php" folder into your plugins directory.
-1. Log in to your WordPress admin panel and click the Plugins menu.
-1. Then activate the plugin.
+See [testing](docs/testing.md), [contributing](CONTRIBUTING.md), and [release process](docs/releases.md).

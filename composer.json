@@ -1,0 +1,34 @@
+{
+  "name": "jahid07/woo-subscription-trial-coupon",
+  "description": "Woo Subscription Trial Coupon",
+  "type": "wordpress-plugin",
+  "license": "GPL-2.0-or-later",
+  "autoload": {
+    "psr-4": {
+      "CoderPlus\\WooSubscriptionTrialCoupon\\": "Classes/"
+    }
+  },
+  "require-dev": {
+    "wp-coding-standards/wpcs": "^3.3",
+    "phpcompatibility/phpcompatibility-wp": "^2.1",
+    "phpunit/phpunit": "^9.6",
+    "yoast/phpunit-polyfills": "^4.0"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    },
+    "sort-packages": true,
+    "platform": {
+      "php": "7.4.33"
+    },
+    "platform-check": false
+  },
+  "scripts": {
+    "lint": "@php scripts/check-phpcs.php",
+    "lint:strict": "phpcs",
+    "lint:baseline": "@php scripts/check-phpcs.php --update",
+    "lint:syntax": "@php scripts/lint-php.php",
+    "test": "phpunit"
+  }
+}

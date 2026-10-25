@@ -1,0 +1,28 @@
+name: Bug or compatibility report
+description: Report a reproducible bug or results from testing another dependency version.
+body:
+  - type: input
+    id: plugin-version
+    attributes:
+      label: Plugin version or Git commit
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment and exact versions
+      description: Include WordPress, PHP, theme, WooCommerce, Subscriptions, and classic/block checkout where relevant. Do not include credentials or customer data.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce or test
+    validations:
+      required: true
+  - type: textarea
+    id: results
+    attributes:
+      label: Expected and actual results
+    validations:
+      required: true

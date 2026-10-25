@@ -5,7 +5,8 @@ Plugin URI: https://jahid.co/plugins
 Description: Wooc Subscription Trial Coupon will add option in Woocommerce coupon filed. This plugin will work with only if you have activate Woocommerce & Woocomerce Subscription enabled
 Author: Jahid
 Author URI: https://jahid.co
-Version: 1.0.1
+Version: 2.0.1
+Requires Plugins: woocommerce
 License: GPLv2 or later
 Tags: Woocommerce Subscription Trial Coupon, Trial Coupon, Free Trial Coupon, Woocommerce subscription Free trial Coupon, Extends Free trial
 Text Domain: WooSubscriptionTrialCoupon
@@ -36,22 +37,34 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+// Include the Composer autoloader
+require_once __DIR__ . '/vendor/autoload.php';
+
+
+use CoderPlus\WooSubscriptionTrialCoupon\Admin\Activator;
+use CoderPlus\WooSubscriptionTrialCoupon\Admin\AdminNotice;
+use CoderPlus\WooSubscriptionTrialCoupon\Admin\Deactivator;
+use CoderPlus\WooSubscriptionTrialCoupon\Admin\TrialCoupon;
+use CoderPlus\WooSubscriptionTrialCoupon\FrontEnd\RedeemCoupon;
+
+
 /**
  * Currently plugin version.
- * Start at version 1.0.0 
+ * Start at version 2.0.1
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'WCSC_VERSION', '1.0.1' );
+define( 'WCSC_VERSION', '2.0.1' );
 
 define('WCSC_PLUGIN_URL', plugin_dir_url(__FILE__));
+
+
 
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-jahid-activator.php
  */
 function activate_wcsc_trial_coupon() {
-	require_once plugin_dir_path( __FILE__ ) . 'inc/class-wcsc-activator.php';
-	WCSC_Activator::activate();
+	Activator::activate();
 }
 
 /**
@@ -59,8 +72,7 @@ function activate_wcsc_trial_coupon() {
  * This action is documented in includes/class-jahid-deactivator.php
  */
 function deactivate_wcsc_trial_coupon() {
-	require_once plugin_dir_path( __FILE__ ) . 'inc/class-wcsc-deactivator.php';
-	WCSC_Deactivator::deactivate();
+	Deactivator::deactivate();
 }
 
 register_activation_hook( __FILE__, 'activate_wcsc_trial_coupon' );
@@ -70,8 +82,7 @@ register_deactivation_hook( __FILE__, 'deactivate_wcsc_trial_coupon' );
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__). 'inc/class-wcsc-trial-coupon.php';
-require_once plugin_dir_path( __FILE__). 'inc/class-WCSC-admin-notice.php';
+
 
 /**
  * Begins execution of the plugin.
@@ -85,11 +96,12 @@ require_once plugin_dir_path( __FILE__). 'inc/class-WCSC-admin-notice.php';
 
 if ( in_array( 'woocommerce-subscriptions/woocommerce-subscriptions.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) && in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {    
     
-    $WCSC = new WCSC_Trial_Coupon();
-    $WCSC->init(); 
+    $WooSubscriptionTrialCouponTC = new TrialCoupon();
+    $WooSubscriptionTrialCouponRC = new RedeemCoupon();
+    $WooSubscriptionTrialCouponTC->init(); 
+    $WooSubscriptionTrialCouponRC->init(); 
 
 }else{   
 
-    add_action( 'admin_notices', 'WCSC_Admin_Notice::check_requre_plugin');
+    add_action('admin_notices', [AdminNotice::class, 'check_requre_plugin']);
 }
-
