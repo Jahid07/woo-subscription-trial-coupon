@@ -18,7 +18,11 @@
 
 ## Private integrations
 
-Place your available Subscriptions folder in `.local/woocommerce-subscriptions/` and a compatible free WooCommerce release in `.local/woocommerce/`. Copy `.wp-env.override.example.json` to `.wp-env.override.json`, restart the environment, and run `npm run test:setup`. Keep the folder names canonical: versioned remote ZIP URLs can change wp-env mount names and break dependency detection. Both versions are recorded in the environment report.
+WooCommerce is a public dependency and downloads automatically from `https://downloads.wordpress.org/plugin/woocommerce.zip`. Both the development and PHPUnit configs use this source. Only WooCommerce Subscriptions needs your private local copy in `.local/woocommerce-subscriptions/`.
+
+Copy `.wp-env.override.example.json` to `.wp-env.override.json`, restart the environment, and run `npm run test:setup`. The override keeps the remote WooCommerce source alongside the local Subscriptions source and the plugin under test. The `plugins` array replaces the base array, so preserve all three entries. Use `npm run env:start -- --update` to deliberately refresh remote sources; normal startup may reuse cached downloads.
+
+The default URL follows the latest stable WooCommerce release. An older Subscriptions copy may require an older WooCommerce version. Use a separate configuration with a pinned compatible copy for that combination, keeping its mounted folder named `woocommerce`; versioned ZIP filenames can otherwise change wp-env mount names. Record the exact installed versions after every dependency change.
 
 The setup command writes `.cache/test-environment.json` with exact WordPress, PHP, theme, and plugin versions. It is a local/CI artifact, not a compatibility claim. Missing premium integration tests are explicitly skipped in the public suite. `npm run test:e2e:integration` requires the premium integration and fails when it is unavailable.
 

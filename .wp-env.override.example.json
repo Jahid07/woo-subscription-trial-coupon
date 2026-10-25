@@ -1,6 +1,6 @@
 {
   "plugins": [
-    "./.local/woocommerce",
+    "https://downloads.wordpress.org/plugin/woocommerce.zip",
     "./.local/woocommerce-subscriptions",
     "."
   ]

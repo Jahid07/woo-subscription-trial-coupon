@@ -31,6 +31,8 @@ The build creates `dist/woo-subscription-trial-coupon-2.0.1.zip` with a producti
 
 ## Integration coverage
 
-Place your available Subscriptions folder in `.local/woocommerce-subscriptions/` and a compatible free WooCommerce release in `.local/woocommerce/`. Copy `.wp-env.override.example.json` to `.wp-env.override.json`, restart the environment, and run `npm run test:setup`. Keep the folder names canonical: versioned remote ZIP URLs can change wp-env mount names and break dependency detection. Both versions are recorded in the environment report.
+WooCommerce downloads automatically from WordPress.org in both Docker environments. Supply only your available Subscriptions folder in `.local/woocommerce-subscriptions/`, copy `.wp-env.override.example.json` to `.wp-env.override.json`, restart the environment, and run `npm run test:setup`. The example keeps the automatic WooCommerce download when adding the private Subscriptions copy. Run `npm run env:start -- --update` when you deliberately want to refresh remote dependencies; a normal start can reuse cached sources. Exact installed versions are recorded in the environment report.
+
+The default download follows the latest stable WooCommerce release. Check its compatibility with your available Subscriptions version before testing. A separate environment can use a pinned older WooCommerce copy when needed; keep the mounted plugin folder named `woocommerce` so dependency detection works.
 
 See [testing](docs/testing.md), [contributing](CONTRIBUTING.md), and [release process](docs/releases.md). WordPress.org publishing remains disabled while this workflow is reviewed. Compatibility claims must reflect actual recorded test versions.
