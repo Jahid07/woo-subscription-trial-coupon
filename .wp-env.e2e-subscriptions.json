@@ -2,7 +2,8 @@
   "phpVersion": "8.3",
   "port": 8917,
   "plugins": [
-    "https://downloads.wordpress.org/plugin/woocommerce.zip",
+    "./.local/woocommerce",
+    "./.local/woocommerce-subscriptions",
     "."
   ],
   "config": {
