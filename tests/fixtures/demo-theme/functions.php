@@ -8,5 +8,5 @@ add_action( 'after_setup_theme', function () {
     register_nav_menus( array( 'primary' => 'Primary navigation', 'footer' => 'Footer navigation' ) );
 } );
 add_action( 'wp_enqueue_scripts', function () {
-    wp_enqueue_style( 'harbor-demo', get_template_directory_uri() . '/site.css', array(), '1.0.0' );
+    wp_enqueue_style( 'harbor-demo', get_template_directory_uri() . '/site.css', array(), (string) filemtime( get_template_directory() . '/site.css' ) );
 } );

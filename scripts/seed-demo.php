@@ -3,11 +3,19 @@
 if ( ! defined( 'WP_CLI' ) || ! WP_CLI || ! defined( 'WORKSHOP_DEMO_ROLE' ) || ! in_array( WORKSHOP_DEMO_ROLE, array( 'development', 'e2e' ), true ) ) {
     throw new RuntimeException( 'Demo fixtures require an explicitly marked local wp-env site.' );
 }
-$manifest = get_option( 'harbor_demo_manifest', array() );
-$refresh  = in_array( 'refresh', $args ?? array(), true );
-if ( $manifest && ! $refresh ) { echo wp_json_encode( $manifest ); return; }
 $project = json_decode( file_get_contents( dirname( __DIR__ ) . '/project.json' ), true );
 $store   = 'woo-subscription-trial-coupon' === $project['slug'];
+$manifest = get_option( 'harbor_demo_manifest', array() );
+$refresh  = in_array( 'refresh', $args ?? array(), true );
+if ( $manifest && ! $refresh ) {
+    // Add the missing fixture without refreshing existing development content or orders.
+    if ( $store && empty( $manifest['pageIds']['privacy-policy'] ) ) {
+        $manifest['pageIds']['privacy-policy'] = harbor_privacy_page();
+        $manifest['seedVersion'] = 2;
+        update_option( 'harbor_demo_manifest', $manifest, false );
+    }
+    echo wp_json_encode( $manifest ); return;
+}
 $brand   = $store ? 'Northline Supply' : 'Harbor Studio';
 $assets  = dirname( __DIR__ ) . '/tests/fixtures/demo-theme/assets/';
 $asset_url = plugins_url( $project['slug'] . '/tests/fixtures/demo-theme/assets/' );
@@ -29,6 +37,11 @@ function harbor_post( $key, $title, $content, $type = 'page', $full = true ) {
     if ( is_wp_error( $id ) ) { throw new RuntimeException( $id->get_error_message() ); }
     update_post_meta( $id, '_harbor_demo_key', $key );
     update_post_meta( $id, '_harbor_full_layout', $full );
+    return $id;
+}
+function harbor_privacy_page() {
+    $id = harbor_post( 'privacy', 'Privacy policy', '<div class="prose"><h2>About this local demo</h2><p>Northline Supply is a local development store with fictional products. No real payments are collected and no orders are fulfilled.</p><h2>Data stored by the demo</h2><p>Accounts, shopping carts, orders, subscriptions and contact messages are stored in this local WordPress database. Use fictional details when testing these features.</p><h2>Email and contact messages</h2><p>The demo suppresses outgoing WordPress email. Contact form submissions are saved locally for development checks.</p></div>', 'page', false );
+    update_option( 'wp_page_for_privacy_policy', $id );
     return $id;
 }
 function harbor_media( $filename, $alt, $width = 1200, $height = 1000 ) {
@@ -111,6 +124,7 @@ $fixtures = array( 'brand' => $brand, 'postIds' => $post_ids );
 
 if ( $store ) {
     if ( ! class_exists( 'WC_Product_Simple' ) ) { throw new RuntimeException( 'Activate WooCommerce before seeding the store.' ); }
+    $pages['privacy-policy'] = harbor_privacy_page();
     $catalog = array(
         array( 'weekend-blend', 'Weekend Blend', '14', 'Coffee', 'Chocolate, toasted almond and a gentle sweetness. Our easygoing house blend, roasted for slow mornings. 250g whole beans.' ),
         array( 'everyday-espresso', 'Everyday Espresso', '16', 'Coffee', 'A rounded espresso with notes of caramel and dark chocolate. Comforting with milk, balanced on its own. 250g whole beans.' ),
@@ -225,7 +239,7 @@ if ( 'Divi' === get_option( 'template' ) ) {
     $fixtures['logoUrl'] = wp_get_attachment_url( $compact );
 }
 $fixtures['pageIds'] = $pages;
-$fixtures['seedVersion'] = 1;
+$fixtures['seedVersion'] = 2;
 $fixtures['role'] = WORKSHOP_DEMO_ROLE;
 update_option( 'harbor_demo_manifest', $fixtures, false );
 echo wp_json_encode( $fixtures );
