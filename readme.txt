@@ -1,5 +1,5 @@
 === Free Trial Coupon for Woocommerce Subscriptions ===
-Contributors: Md. Jahidul Islam
+Contributors: md-jahidul-islam
 Tags: Woocommerce Subscription Trial Coupon, Trial Coupon, Free Trial Coupon, Woocommerce subscription Free trial Coupon, Extends Free trial
 Requires at least: 5.9
 Tested up to: 6.8.2
@@ -11,6 +11,13 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 "Free Trial Coupon for WooCommerce Subscriptions" adds a coupon type to extend the default trial period for subscription products.
 
 == Description ==
+
+= Compatibility and community testing =
+
+Compatibility with the latest WooCommerce Subscriptions release has not yet been verified. We are rebuilding automated test coverage and will document exact tested WordPress, PHP, WooCommerce, and Subscriptions versions in the GitHub repository.
+
+Have access to a newer Subscriptions release? Please test a GitHub prerelease on a staging site and share your environment, steps, and results: https://github.com/Jahid07/woo-subscription-trial-coupon/issues
+
 
 **Free Trial Coupon for WooCommerce Subscriptions adds a new coupon type that allows you to extend the default trial period for subscription products. This is ideal for businesses looking to offer extended free trials to attract new subscribers. The coupon can be applied during the sign-up process, giving customers more time to evaluate your product or service before committing.
 

@@ -1,0 +1,51 @@
+name: Release dry run
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    name: Build package and inspect Plugin Check findings
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2
+        with:
+          php-version: '8.3'
+          tools: composer
+          coverage: none
+      - run: composer install --no-interaction --prefer-dist --no-progress
+      - run: npm ci
+      - run: composer lint:syntax
+      - run: composer lint
+      - run: npm run build
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: release-review-package
+          path: dist/*.zip
+          if-no-files-found: error
+      - name: Plugin Check (advisory while legacy findings are addressed)
+        id: plugin-check
+        continue-on-error: true
+        uses: WordPress/plugin-check-action@10857da14b6c2246d15402b3e69f777edcf8c12e # v1
+        with:
+          build-dir: dist/woo-subscription-trial-coupon
+      - name: Record release readiness
+        if: always()
+        env:
+          PLUGIN_CHECK_OUTCOME: ${{ steps.plugin-check.outcome }}
+        run: |
+          {
+            echo '## Release review'
+            echo 'WordPress.org deployment is disabled. This workflow cannot publish.'
+            echo "Plugin Check outcome: $PLUGIN_CHECK_OUTCOME"
+            echo 'Review all findings and recorded integration coverage before a future stable release.'
+          } >> "$GITHUB_STEP_SUMMARY"
