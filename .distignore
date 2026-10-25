@@ -36,3 +36,8 @@
 /.wp-env.override.json
 /project.json
 /.wp-env.phpunit.json
+/.wp-env.e2e.json
+/.wp-env.divi5.json
+/.wp-env.e2e-divi5.json
+/.wp-env.subscriptions.json
+/.wp-env.e2e-subscriptions.json

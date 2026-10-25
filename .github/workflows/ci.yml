@@ -69,8 +69,6 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npm run test:php
-      - run: npm run env:start
-      - run: npm run test:setup
       - run: npm run test:e2e
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: always()
@@ -82,5 +80,5 @@ jobs:
             .cache/test-environment.json
           include-hidden-files: true
           retention-days: 14
-      - run: npm run env:stop
+      - run: node node_modules/@wordpress/env/bin/wp-env --config=.wp-env.e2e.json stop
         if: always()

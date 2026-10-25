@@ -13,11 +13,15 @@
     "wp": "wp-env run cli wp",
     "test:php": "node scripts/test-php.mjs",
     "test:setup": "node scripts/setup-e2e.mjs",
-    "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui",
-    "test:e2e:integration": "REQUIRE_PREMIUM_TESTS=1 playwright test --grep @premium",
+    "test:e2e": "node scripts/run-e2e.mjs",
+    "test:e2e:ui": "node scripts/run-e2e.mjs --ui",
+    "test:e2e:integration": "node scripts/run-e2e.mjs --subscriptions --require-premium --grep @premium",
     "build": "node scripts/build.mjs",
-    "check:release": "node scripts/check-release.mjs"
+    "check:release": "node scripts/check-release.mjs",
+    "demo:seed": "node scripts/seed-demo.mjs",
+    "demo:refresh": "node scripts/seed-demo.mjs --refresh",
+    "demo:subscriptions": "node scripts/seed-demo.mjs --subscriptions",
+    "test:e2e:subscriptions": "node scripts/run-e2e.mjs --subscriptions --require-premium"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",

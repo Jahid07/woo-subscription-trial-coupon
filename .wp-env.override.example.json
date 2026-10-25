@@ -1,7 +1,3 @@
 {
-  "plugins": [
-    "https://downloads.wordpress.org/plugin/woocommerce.zip",
-    "./.local/woocommerce-subscriptions",
-    "."
-  ]
+  "plugins": ["https://downloads.wordpress.org/plugin/woocommerce.zip", "."]
 }

@@ -10,7 +10,7 @@ export default defineConfig({
   globalTimeout: 300_000,
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
-    baseURL: process.env.WP_BASE_URL || 'http://localhost:8910',
+    baseURL: process.env.WP_BASE_URL || 'http://localhost:8912',
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
   },
