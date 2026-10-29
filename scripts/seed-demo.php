@@ -18,7 +18,7 @@ if ( $manifest && ! $refresh ) {
 }
 $brand   = $store ? 'Northline Supply' : 'Harbor Studio';
 $assets  = dirname( __DIR__ ) . '/tests/fixtures/demo-theme/assets/';
-$asset_url = plugins_url( $project['slug'] . '/tests/fixtures/demo-theme/assets/' );
+$asset_url = trailingslashit( get_stylesheet_directory_uri() ) . 'assets/';
 update_option( 'harbor_demo_kind', $store ? 'store' : 'studio' );
 update_option( 'blogname', $brand );
 update_option( 'blogdescription', $store ? 'Considered goods. Everyday rituals.' : 'Thoughtful identities for a changing world.' );

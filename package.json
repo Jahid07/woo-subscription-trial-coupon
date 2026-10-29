@@ -21,7 +21,10 @@
     "demo:seed": "node scripts/seed-demo.mjs",
     "demo:refresh": "node scripts/seed-demo.mjs --refresh",
     "demo:subscriptions": "node scripts/seed-demo.mjs --subscriptions",
-    "test:e2e:subscriptions": "node scripts/run-e2e.mjs --subscriptions --require-premium"
+    "test:e2e:subscriptions": "node scripts/run-e2e.mjs --subscriptions --require-premium",
+    "test:tooling": "node --test tests/node/*.test.mjs",
+    "test:release": "node scripts/test-release.mjs",
+    "verify": "node scripts/verify.mjs"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",

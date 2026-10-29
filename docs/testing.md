@@ -47,3 +47,23 @@ The built ZIP upgraded from the published 2.0.1 package while preserving the exi
 Plugin Check 2.1.0 was run on the installed production ZIP with static and runtime checks in update mode. It reported 16 errors and 18 warnings, compared with 16 errors and 19 warnings for the published 2.0.1 ZIP; no new findings were introduced. Remaining findings include text-domain/localization errors, unescaped admin output, input-handling warnings, global naming, the legacy slug, and omitted Composer metadata. These are recorded review items, not a clean Plugin Check result. No release tag or SVN publication has been created.
 
 The final ZIP also installed and activated successfully on a fresh WordPress 7.1.4 database with the supplied dependencies. The fresh CLI reset/install sequence emitted a WooCommerce translation-loading timing notice; this is separate from the empty debug output recorded during coupon/browser checks. The persistent development sites were not reset.
+
+## Automated verification
+
+Run `npm run verify` for the public checks, or use your private Subscriptions copy with:
+
+```sh
+WC_VERSION=latest npm run verify -- --subscriptions --require-premium
+```
+
+The command runs Composer validation, syntax/lint checks, the npm high/critical audit gate, tooling regressions, PHPUnit, production ZIP checks, and browser checks. Package tests reset only the existing disposable E2E profile (8912 public or 8917 private), install the ZIP on a fresh database, seed the published baseline, upgrade to the candidate, and compare saved coupon/product settings. They stop the test site and restore its previous override afterward. Do not run concurrent commands against the same E2E profile.
+
+Every browser case fails on JavaScript exceptions, console errors, or HTTP 5xx responses. Fresh WordPress debug output and WooCommerce error-level logs also fail the run; earlier log entries are retained and excluded from the comparison. CLI setup notices are separate from the browser log window.
+
+`npm run test:release` runs the package/browser subset. The official Plugin Check tool (pinned at 2.1.0) checks both installed versions in update mode; new findings fail the check. Existing findings remain visible and require release review. A passing automation run is not approval to publish and does not establish coverage for skipped premium tests, newer Subscriptions releases, block checkout, variable subscriptions, or real renewal/payment gateways.
+
+Reports are in `.cache/verification.json`, `.cache/npm-audit.json` (including below-threshold dependency advisories), `.cache/release-review-default/summary.md` or `.cache/release-review-subscriptions/summary.md`, their adjacent JSON/raw Plugin Check reports, `.cache/browser-logs-*.json`, and `playwright-report/`. Reports record exact WordPress/PHP/dependency versions and the ZIP checksum.
+
+GitHub runs package verification on PHP 8.3 and public browser/PHP regressions on PHP 8.4 for every PR and push to the default branch. It uploads reports and displays the release summary. The manual release dry run uses the same package runner. Premium files stay local and are never included in artifacts or release ZIPs. WordPress.org publishing stays disabled.
+
+Automation validation on 2026-10-29: the installed production ZIP passed all nine Chromium cases on WordPress 7.1.4 / PHP 8.3.32 / WooCommerce 11.2.1 / Subscriptions 7.7.0. Fresh browser/PHP/WooCommerce error checks found no problems. Fresh installation, retained-settings upgrade, readme/version checks, and Plugin Check comparison passed; 34 inherited findings remain and stable publication stays disabled.

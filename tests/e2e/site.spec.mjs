@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.mjs';
 import { assertHealthy } from './helpers.mjs';
 const environment = () => JSON.parse(fs.readFileSync(process.env.DEMO_REPORT_PATH || '.cache/test-environment.json', 'utf8'));
 
