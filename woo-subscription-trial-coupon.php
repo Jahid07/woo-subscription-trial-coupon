@@ -5,7 +5,7 @@ Plugin URI: https://jahid.co/plugins
 Description: Wooc Subscription Trial Coupon will add option in Woocommerce coupon filed. This plugin will work with only if you have activate Woocommerce & Woocomerce Subscription enabled
 Author: Jahid
 Author URI: https://jahid.co
-Version: 2.0.2
+Version: 2.0.3
 Requires Plugins: woocommerce
 License: GPLv2 or later
 Tags: Woocommerce Subscription Trial Coupon, Trial Coupon, Free Trial Coupon, Woocommerce subscription Free trial Coupon, Extends Free trial
@@ -53,7 +53,7 @@ use CoderPlus\WooSubscriptionTrialCoupon\FrontEnd\RedeemCoupon;
  * Start at version 2.0.1
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'WCSC_VERSION', '2.0.2' );
+define( 'WCSC_VERSION', '2.0.3' );
 
 define('WCSC_PLUGIN_URL', plugin_dir_url(__FILE__));
 
