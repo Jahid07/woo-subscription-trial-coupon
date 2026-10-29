@@ -24,3 +24,9 @@ WordPress.org SVN is the distribution repository. This GitHub repository is the 
 After dry-run validation, add a reviewed deployment workflow restricted to stable release tags, pinned deployment actions, and a protected `wordpress-org` GitHub environment. Store the committer username and SVN-specific password in environment secrets, with account 2FA enabled. Verify the tag version and refuse to overwrite existing SVN tags. Deploy the tested production files to trunk and a new SVN tag, confirm the release if enabled, and verify the directory ZIP and update API after WordPress.org's processing/cooldown.
 
 The dry-run workflow is intentionally unable to publish. No credentials are needed for development or package review. Future activation of delivery is a separate explicit step.
+
+## 2.0.2 candidate status
+
+The version fields and WordPress.org readme are prepared for 2.0.2. The candidate was tested on WordPress 7.1.4 with WooCommerce 11.2.1 and the supplied Subscriptions 7.7.0; see [testing evidence and limits](testing.md). The latest premium Subscriptions release is unverified.
+
+Plugin Check still reports 16 errors and 18 warnings inherited from the existing package, including localization and admin-output findings. Review and resolve release-blocking findings before stable publication. The existing lint baseline has not been increased. WordPress.org publishing remains disabled, and this candidate has no release tag.
