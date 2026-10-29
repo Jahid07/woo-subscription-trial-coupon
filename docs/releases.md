@@ -9,6 +9,14 @@ WordPress.org SVN is the distribution repository. This GitHub repository is the 
 - The GitHub workflow can build a dry-run package and collect Plugin Check findings. It does not commit to SVN.
 - Existing Plugin Check and coding-standard findings are technical debt, not a clean certification.
 
+## Manual WordPress.org deployment preview
+
+Open **Actions > WordPress.org deployment preview > Run workflow**, selecting `master`. This builds the production package, reads public WordPress.org SVN, and prepares local trunk, tag, and image changes. Download the `wordpress-org-preview` artifact to review `status.txt`, `changes.diff`, and `summary.md`.
+
+This workflow uses native SVN commands, with no third-party deployment action, no SVN credentials, and no publish command. It runs manually on this repository's `master` branch only, with a read-only GitHub token and pinned GitHub actions. It does not run the browser suite or prove the saved SVN password has write access.
+
+Store listing images in `.wordpress-org/`; they map to the top-level SVN `assets/` folder. Until that folder exists in Git, the preview retains existing WordPress.org listing images. Plugin runtime assets remain inside the production package. Existing version tags are refused rather than overwritten.
+
 ## Prepare a future release
 
 1. Open a pull request with the change and its regression tests.
