@@ -1,0 +1,3 @@
+{
+  "plugins": ["./.local/woocommerce", "./.local/woocommerce-subscriptions", "."]
+}

@@ -31,8 +31,7 @@
 /.editorconfig
 /.gitignore
 /.nvmrc
-/.wp-env.json
-/.wp-env.override.example.json
+/.wp-env.subscriptions.override.example.json
 /.wp-env.override.json
 /project.json
 /.wp-env.phpunit.json
