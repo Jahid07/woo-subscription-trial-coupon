@@ -2,10 +2,13 @@
 
 [Demo setup and environment profiles](demo.md) describes the persistent websites, private dependency locations and reset behavior.
 
+The only persistent development shop is WooCommerce + Subscriptions on port 8915. The public CI profile on port 8912 and premium profile on port 8917 are disposable browser-test sites, started only for testing. Removing the old development shop on port 8910 does not remove automated missing-dependency coverage.
+
 ## Checks
 
 - `composer lint:syntax`: syntax for project PHP, including fixture code.
 - `composer lint`: blocks increases in existing WordPress/PHPCompatibility findings. `composer lint:strict` lists outstanding findings; do not increase the baseline to hide debt.
+- `npm run test:tooling`: Node tests for version resolution, download path checks, local-site guards and matching database snapshot validation. Runs without Docker, premium sources or network access.
 - `npm run test:php`: starts a separate WordPress PHPUnit environment, runs the integration suite, then stops it even on failure.
 - `npm run test:e2e`: resets the isolated E2E database, seeds the realistic website, runs Chromium tests, then stops the test site. Development data is preserved.
 - `npm run build`: checks version consistency and builds a production ZIP with no development or private assets.
@@ -16,7 +19,9 @@ Exact WordPress, PHP, theme and plugin versions and fixture IDs are recorded in 
 
 Private premium tests skip explicitly in a public checkout. `npm run test:e2e:integration` requires the private integration and fails if unavailable. Premium files are not uploaded to GitHub or provided to public CI.
 
-The default WordPress core follows wp-env's latest stable source and PHP defaults to 8.3. CI also tests PHP 8.4. Pin `core` in a profile-specific ignored override when checking another WordPress version. Local overrides for development, PHPUnit and E2E are separate. These checks do not certify the inherited legacy minimum-version declarations.
+Private browser tests use the development shop's selected WooCommerce version unless `WC_VERSION=latest` or a numeric override is supplied for that test run. This changes only the disposable test mapping, not the development selection. Record the resolved numeric version from the environment report when reporting compatibility. See [same-site version selection](demo.md#choose-woocommerce-versions-on-the-same-site) for development switches and database restoration.
+
+Fresh profiles follow wp-env's latest stable WordPress source and PHP defaults to 8.3. The WooCommerce version selector pins the development shop's installed WordPress version so switching WooCommerce does not also refresh core. CI also tests PHP 8.4. Pin `core` in a profile-specific ignored override when checking another WordPress version. Local overrides for development, PHPUnit and E2E are separate. These checks do not certify the inherited legacy minimum-version declarations.
 
 ## Community reports
 
@@ -31,6 +36,10 @@ Syntax, existing-finding baselines and production ZIP checks passed. All five pe
 ## Account-page follow-up — 2026-10-25
 
 A desktop in-app browser review verified customer login, dashboard, Orders, Subscriptions, Downloads, Addresses and Account details. Corrected WooCommerce clearfix pseudo-elements being treated as grid cells in Login/Register and address layouts, restored paragraph-notice spacing, highlighted the current account section, and made fixture CSS cache versions follow file changes. A missing local privacy page is added by an idempotent seed migration that preserves existing development content and orders. Registration submission, password changes and account-detail saves were outside this check.
+
+## Same-site version selection — 2026-10-29
+
+Five Node tooling tests passed. On the existing development profile/port 8915, switched WooCommerce 9.9.5 to the WordPress.org-resolved latest release 11.2.1, ran its 31 database update functions, and restored the previous files and matching database with `woo:restore -- previous`. The final cycle kept WordPress pinned at 7.1.3, PHP 8.3.32, Subscriptions 7.7.0 and Trial Coupon 2.0.1. Verified the restored eight products, product IDs 22/40, customer fixture ID 2 and zero existing orders. The Coffee Club remained a purchasable £22/month subscription, and its seven-day trial coupon metadata loaded on 11.2.1. Store, product, cart and account pages responded successfully; full latest-version checkout/renewal compatibility was not established by these checks. Private backup storage denied HTTP access before SQL export. Production ZIP packaging also passed with development tools and private data excluded.
 
 ## Coupon application and logs — 2026-10-29
 

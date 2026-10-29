@@ -8,6 +8,8 @@ Development source for the existing WordPress.org plugin. The published **2.0.1*
 
 Prerequisites: Docker Desktop running, Node 24, Composer, PHP CLI, and `zip`/`unzip`.
 
+Supply WooCommerce Subscriptions privately at `.local/woocommerce-subscriptions.zip` or `.local/woocommerce-subscriptions/`. WooCommerce is downloaded automatically at the version declared by that copy's compatibility header.
+
 ```sh
 composer install
 npm ci
@@ -17,9 +19,11 @@ npm run test:php
 npm run test:e2e
 ```
 
-Open [the development website](http://localhost:8910) and log in with `admin` / `password`. The realistic demo is persistent; browser tests use a separate resettable site on port 8912. PHPUnit also has its own database on port 8911.
+Open [the development website](http://localhost:8915) and log in with `admin` / `password`. This is the only persistent shop and includes WooCommerce + Subscriptions. Public CI browser tests use a disposable site on port 8912; premium browser tests use port 8917. PHPUnit also has its own database on port 8911.
 
-See [demo websites and private dependencies](docs/demo.md) for content, refresh behavior, extra profiles and premium integration commands. `npm run env:stop` stops the default development site.
+See [demo websites and private dependencies](docs/demo.md) for content, refresh behavior and premium integration commands. The `env:start`, `env:stop`, `env:logs` and `wp` npm commands explicitly select the existing Subscriptions profile on port 8915.
+
+Choose WooCommerce on that same site with `npm run woo:use -- current`, `npm run woo:use -- latest`, or `npm run woo:use -- VERSION`. Each change saves a private database checkpoint; `npm run woo:restore -- previous` restores the previous files and database state. Restarting retains the chosen version. See [version selection and restore behavior](docs/demo.md#choose-woocommerce-versions-on-the-same-site) before switching back.
 
 ```sh
 composer lint:syntax
@@ -28,7 +32,7 @@ npm run check:release
 npm run build
 ```
 
-The build creates `dist/woo-subscription-trial-coupon-2.0.2.zip` with a production-only Composer autoloader and verifies development/private files are excluded. Existing WordPress/PHPCompatibility findings are tracked in `phpcs-baseline.json`; checks block increases. Compatibility claims must reflect actual recorded test versions.
+The build creates `dist/woo-subscription-trial-coupon-2.0.3.zip` with a production-only Composer autoloader and verifies development/private files are excluded. Existing WordPress/PHPCompatibility findings are tracked in `phpcs-baseline.json`; checks block increases. Compatibility claims must reflect actual recorded test versions.
 
 See [testing](docs/testing.md), [contributing](CONTRIBUTING.md), and [release process](docs/releases.md).
 
