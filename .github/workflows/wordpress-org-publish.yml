@@ -1,0 +1,52 @@
+name: Publish to WordPress.org
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wordpress-org-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.repository == 'Jahid07/woo-subscription-trial-coupon' && !github.event.release.draft && !github.event.release.prerelease
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    environment:
+      name: wordpress-org
+      url: https://wordpress.org/plugins/woo-subscription-trial-coupon/
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: refs/tags/${{ github.event.release.tag_name }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+      - name: Check publication trigger and merged source
+        run: node scripts/publish-wordpress.mjs --check
+      - name: Install native SVN tools
+        run: sudo apt-get update -qq && sudo apt-get install -y subversion rsync
+      - name: Build production package
+        run: npm run build
+      - name: Publish selected release to WordPress.org
+        run: node scripts/publish-wordpress.mjs --publish
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: wordpress-org-release
+          path: |
+            dist/*.zip
+            .cache/wordpress-org-preview/status.txt
+            .cache/wordpress-org-preview/changes.diff
+            .cache/wordpress-org-preview/publication.md
+          include-hidden-files: true
+          retention-days: 7
