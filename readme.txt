@@ -1,154 +1,135 @@
-=== Free Trial Coupon for Woocommerce Subscriptions ===
+=== Free Trial Coupon for WooCommerce Subscriptions ===
 Contributors: md-jahidul-islam
-Tags: Woocommerce Subscription Trial Coupon, Trial Coupon, Free Trial Coupon, Woocommerce subscription Free trial Coupon, Extends Free trial
+Tags: woocommerce, subscriptions, free trial, coupons, trial period
 Requires at least: 5.9
-Tested up to: 6.8.2
-Stable tag: 2.0.1
+Tested up to: 7.1
+Stable tag: 2.0.2
 Requires PHP: 7.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-"Free Trial Coupon for WooCommerce Subscriptions" adds a coupon type to extend the default trial period for subscription products.
+Offer custom free-trial periods for WooCommerce subscription products with trial coupons and optional sign-up fee discounts.
 
 == Description ==
 
-= Compatibility and community testing =
+Free Trial Coupon for WooCommerce Subscriptions lets you offer a different free-trial period through a coupon code. Create a "Subscription Trial" coupon, choose the trial length and period, and let customers apply it when signing up for a subscription.
 
-Compatibility with the latest WooCommerce Subscriptions release has not yet been verified. We are rebuilding automated test coverage and will document exact tested WordPress, PHP, WooCommerce, and Subscriptions versions in the GitHub repository.
-
-Have access to a newer Subscriptions release? Please test a GitHub prerelease on a staging site and share your environment, steps, and results: https://github.com/Jahid07/woo-subscription-trial-coupon/issues
-
-
-**Free Trial Coupon for WooCommerce Subscriptions adds a new coupon type that allows you to extend the default trial period for subscription products. This is ideal for businesses looking to offer extended free trials to attract new subscribers. The coupon can be applied during the sign-up process, giving customers more time to evaluate your product or service before committing.
-
-Please note that this plugin does not support renewal discounts for subscriptions in the latest version.
-
-To use this plugin, you must have both WooCommerce and WooCommerce Subscriptions installed and activated.
-
-> Requires Plugins:
-> 1. [**Woocommerce 6.5 or greater **](https://wordpress.org/plugins/woocommerce/)
-> 2. [**Woocommerce Subscriptions 6.7 or greater **](https://woocommerce.com/products/woocommerce-subscriptions/)
-
+Use trial coupons for subscription promotions, introductory offers, and extended trials. You can also add a trial period to WooCommerce Subscriptions' fixed or percentage sign-up fee discount coupons.
 
 = Features =
 
-1. *Add new coupon type: "Subscription Trial"*  
-   A dedicated coupon type specifically for the subscription trial period. It does not include sign-up fee discounts, ensuring clear and focused functionality for trial periods.
+* A dedicated "Subscription Trial" coupon type.
+* Set the free-trial length in days, weeks, months, or years.
+* Add trial settings to "Sign-Up Fee Discount" and "Sign-Up Fee % Discount" coupons.
+* Trial handling for simple subscriptions and subscription variations.
+* Display the coupon's trial period in cart totals.
+* Reject trial-only coupons when the cart contains no subscription products.
 
-2. *Added trial period options for the coupon type "Sign-Up Fee Discount"*  
-   Extend the functionality of the "Sign-Up Fee Discount" coupon type by allowing trial period options to be configured for subscription products.
+Trial-only coupons do not discount sign-up fees. This plugin does not add renewal-payment discounts.
 
-3. *Added trial period options for the coupon type "Sign-Up Fee % Discount"*  
-   Enable trial period settings for the "Sign-Up Fee % Discount" coupon type, providing flexibility to offer percentage-based sign-up discounts along with trial periods.
+= Requirements =
 
-4. *Compatible with both Simple and Variable Subscription Products*  
-   All coupon types work seamlessly with both simple and variable subscription products, ensuring broad compatibility and flexibility.
+Install and activate both:
 
+1. [WooCommerce 6.5 or greater](https://wordpress.org/plugins/woocommerce/).
+2. [WooCommerce Subscriptions 6.7 or greater](https://woocommerce.com/products/woocommerce-subscriptions/) (paid extension, purchased separately).
+
+These are the existing minimum requirements; they are not a claim that every version combination has been tested.
+
+= Compatibility and community testing =
+
+Version 2.0.2 was tested with WordPress 7.1.4, WooCommerce 11.2.1, WooCommerce Subscriptions 7.7.0, and PHP 8.3.32. Verified scenarios include a seven-day trial on a simple subscription using the classic cart and checkout, coupon refresh/removal/reapplication, and rejection on a regular-product cart.
+
+We do not currently have access to the latest WooCommerce Subscriptions release, so compatibility with that release has not yet been verified. If you have a newer version and would like to contribute, please test the release candidate on a staging site and [share your versions, steps, and results on GitHub](https://github.com/Jahid07/woo-subscription-trial-coupon/issues). Please do not upload paid plugin files, license keys, or customer data.
+
+[Testing details and known coverage limits](https://github.com/Jahid07/woo-subscription-trial-coupon/blob/master/docs/testing.md) are maintained in the development repository. Automatic payment gateways, renewals, block checkout, subscription variations, and sign-up fee coupon combinations are not covered by the latest release checks.
+
+= Getting started =
+
+1. Go to **Marketing > Coupons** and add a coupon.
+2. Choose **Subscription Trial** as the discount type.
+3. Enter the **Free trial** length and select its period.
+4. Set any coupon restrictions and publish the coupon.
+5. Add a subscription product to the cart and apply the code. Review the trial and recurring totals before placing an order.
 
 = Demo =
 
-**Demo Main Website:**  
-[https://demo.coderplus.co/woo-subscription-trial-coupon/](https://demo.coderplus.co/woo-subscription-trial-coupon/)
+[Explore the demo store](https://demo.coderplus.co/woo-subscription-trial-coupon/). Example coupon codes on that site:
 
-1. **Subscription Trial Demonstration (1 Month Free)**  
-   - **Coupon Code:** `TRIALDESIGN` (Used in the example demo site, but you can create your own custom coupon name).  
-   - **Coupon Type:** Subscription Trial  
-   - **Setup:** Go to **Dashboard → Marketing → Coupons**, and select coupon type "Subscription Trial."  
-   - **Demo Link:** [Subscription Trial Demo (1 Month Free)](https://demo.coderplus.co/woo-subscription-trial-coupon/product/graphic-design-subscription/)
+* `TRIALDESIGN`: one-month trial for the graphic design subscription.
+* `TRIALSUPPORT`: five-day trial for the tech support subscription.
+* `TRIALMEDITATE`: two-week trial for weekly meditation classes.
+* `TRIALBOOK`: one-year trial for the virtual book club.
+* `TRIALLANG`: percentage sign-up fee discount for online language lessons.
+* `TRIALSEO`: fixed sign-up fee discount for monthly SEO audit reports.
 
-2. **Sign-Up Fee % Discount Demonstration (50% Discount)**  
-   - **Coupon Code:** `TRIALLANG` (Used in the example demo site, but you can create your own custom coupon name).  
-   - **Coupon Type:** Sign-Up Fee % Discount  
-   - **Setup:** Go to **Dashboard → Marketing → Coupons**, and select coupon type "Sign-Up Fee % Discount."  
-   - **Demo Link:** [Sign-Up Fee % Discount Demo (50% Discount)](https://demo.coderplus.co/woo-subscription-trial-coupon/product/online-language-lessons/)
+These are demo codes; create your own coupons on your store.
 
-3. **Subscription Trial Demonstration (5 Days Free)**  
-   - **Coupon Code:** `TRIALSUPPORT` (Used in the example demo site, but you can create your own custom coupon name).  
-   - **Coupon Type:** Subscription Trial  
-   - **Setup:** Go to **Dashboard → Marketing → Coupons**, and select coupon type "Subscription Trial."  
-   - **Demo Link:** [Subscription Trial Demo (5 Days Free)](https://demo.coderplus.co/woo-subscription-trial-coupon/product/tech-support-subscription/)
+= Other plugins by CoderPlus =
 
-4. **Subscription Trial Demonstration (2 Weeks Free)**  
-   - **Coupon Code:** `TRIALMEDITATE` (Used in the example demo site, but you can create your own custom coupon name).  
-   - **Coupon Type:** Subscription Trial  
-   - **Setup:** Go to **Dashboard → Marketing → Coupons**, and select coupon type "Subscription Trial."  
-   - **Demo Link:** [Subscription Trial Demo (2 Weeks Free)](https://demo.coderplus.co/woo-subscription-trial-coupon/product/weekly-meditation-classes/)
+**Data Privacy Manager for WooCommerce (Premium)**
+Help your team process customer privacy requests associated with GDPR workflows, review approvals, follow up with customers, and track outcomes. Organize permission records, privacy choices, staff access, and customer-facing steps.
+[View on WooCommerce.com](https://woocommerce.com/products/data-privacy-manager/)
 
-5. **Signup Fee Discount Demonstration (Fixed Amount)**  
-   - **Coupon Code:** `TRIALSEO` (Used in the example demo site, but you can create your own custom coupon name).  
-   - **Coupon Type:** Signup Fee Discount  
-   - **Setup:** Go to **Dashboard → Marketing → Coupons**, and select coupon type "Signup Fee Discount."  
-   - **Demo Link:** [Signup Fee Discount Demo (Fixed Amount)](https://demo.coderplus.co/woo-subscription-trial-coupon/product/monthly-seo-audit-reports/)
+**Role-Based Analytics for WooCommerce (Premium)**
+Filter WooCommerce Analytics by WordPress user role. Compare customer groups across sales, orders, products, coupon usage, and downloads, with role reports and leaderboards.
+[View on WooCommerce.com](https://woocommerce.com/products/role-based-analytics-woocommerce/)
 
-6. **Subscription Trial Demonstration (1 Year Free)**  
-   - **Coupon Code:** `TRIALBOOK` (Used in the example demo site, but you can create your own custom coupon name).  
-   - **Coupon Type:** Subscription Trial  
-   - **Setup:** Go to **Dashboard → Marketing → Coupons**, and select coupon type "Subscription Trial."  
-   - **Demo Link:** [Subscription Trial Demo (1 Year Free)](https://demo.coderplus.co/woo-subscription-trial-coupon/product/virtual-book-club-membership/)
+**X Scroll To Top - Responsive**
+Add a lightweight, customizable scroll-to-top button to your site.
+[View on WordPress.org](https://wordpress.org/plugins/x-scroll-to-top-responsive/)
 
-
-= Other Plugins by CoderPlus =
-
-**Role‑Based Analytics for WooCommerce (Premium)**  
-Filter WooCommerce sales reports by WordPress user roles analyze order counts, product sales, coupon usage, downloads, and compare top customer groups with built‑in leaderboards.  
-🔗 [View on WooCommerce.com](https://woocommerce.com/products/role-based-analytics-woocommerce/)
-
-**X Scroll To Top – Responsive**  
-Add a lightweight, customizable scroll-to-top button to your site.  
-🔗 [View Plugin](https://wordpress.org/plugins/x-scroll-to-top-responsive/)
-
-**Logo Switcher for Divi**  
-Switch logos on scroll, sticky header, or dark/light mode for Divi-based websites.  
-🔗 [View Plugin](https://wordpress.org/plugins/logo-switcher-divi/)
-
+**Logo Switcher for Divi**
+Set a separate logo for Divi's fixed navigation header when visitors scroll.
+[View on WordPress.org](https://wordpress.org/plugins/logo-switcher-divi/)
 
 == Installation ==
 
-Through Dashboard
+1. Install and activate WooCommerce and WooCommerce Subscriptions.
+2. Go to **Plugins > Add New** and search for **Free Trial Coupon for WooCommerce Subscriptions**, then install and activate it. Alternatively, upload the plugin ZIP using **Plugins > Add New > Upload Plugin**.
+3. Go to **Marketing > Coupons** to create a trial coupon.
 
-1. Log in to your WordPress admin panel and go to Plugins -> Add New
-2. Type **Free Trial length Coupon for Woocommerce Subscription** in the search box and click on search button.
-3. Find 'Free Trial length Coupon for Woocommerce Subscription' plugin.
-4. Then click on Install Now after that activate the plugin.
-5. Click on setting button & add your logo form theme customizer.
-
-Installing Via FTP
-
-1. Download the plugin to your hard disk.
-2. Unzip.
-3. Upload the "woo-subscription-trial-coupon.php" folder into your plugins directory.
-4. Log in to your WordPress admin panel and click the Plugins menu.
-5. Then activate the plugin.
+For manual installation, extract the ZIP and upload the `woo-subscription-trial-coupon` folder to `/wp-content/plugins/`, then activate it from **Plugins**.
 
 == Frequently Asked Questions ==
 
-= Does it work without the WooCommerce plugin? =
+= Does it work without WooCommerce Subscriptions? =
 
-No, this plugin requires WooCommerce to be installed and activated in order to function.
+No. Both WooCommerce and the paid WooCommerce Subscriptions extension must be installed and activated.
 
-= Does it work without the WooCommerce Subscriptions plugin? =
+= How do I offer a different trial period with a coupon? =
 
-No, this plugin requires both WooCommerce and WooCommerce Subscriptions to be installed and activated.
+Create a "Subscription Trial" coupon, enter the trial length and period, and publish it. Customers apply the code in the cart or checkout when signing up for an eligible subscription.
 
-= Does it support WooCommerce Subscriptions coupon types? =
+= Can I combine a trial with a sign-up fee discount? =
 
-Yes, the plugin works with WooCommerce Subscriptions and supports default coupon types such as "Sign-Up Fee" and "Sign-Up Fee Percentage" discounts. However, the plugin does not support renewal discounts in the latest version.
+The plugin adds trial fields to WooCommerce Subscriptions' fixed and percentage sign-up fee discount coupon types. Test your product and coupon combination on staging before using it in your store.
 
-= Can I use this plugin to extend the trial period for subscriptions? =
+= Does it discount subscription renewals? =
 
-Yes, the main feature of this plugin is to add a new coupon type that allows you to extend the trial period for subscription products, providing flexibility in offering free trials to potential customers.
+No. The plugin focuses on the initial trial period and sign-up fee coupon settings; it does not add renewal discounts.
 
+= Have you tested the latest WooCommerce Subscriptions release? =
+
+Our available test copy is version 7.7.0. We welcome staging-test reports from users with newer versions. See the compatibility section above for the exact tested stack and contribution link.
 
 == Screenshots ==
 
-1. Go to Wordpress dashboard>woocommerce>Marketing>Coupons 
-2. Create new coupon
-3. Select coupon type "Subscription Trial"
-4. In put your free trial length & period in "Free Trial" filed 
-5. Before apply coupon code
-6. After applied coupon code
+1. Open Marketing > Coupons in the WordPress dashboard.
+2. Create a new coupon.
+3. Select the "Subscription Trial" coupon type.
+4. Enter the free-trial length and period.
+5. Cart totals before applying the coupon.
+6. Cart totals after applying the coupon.
 
 == Changelog ==
+
+= 2.0.2 =
+* Fix a PHP deprecation when a trial coupon is rejected for a cart without subscription products.
+* Clear obsolete validation errors when the same coupon is checked again after the cart changes.
+* Tested with WordPress 7.1.4 and WooCommerce 11.2.1 using WooCommerce Subscriptions 7.7.0.
+* Clarify setup instructions, compatibility coverage, and community testing information.
+
 = 2.0.1 - September 24, 2024 =
 - Improve code quality
 = 2.0.0 - September 24, 2024 =

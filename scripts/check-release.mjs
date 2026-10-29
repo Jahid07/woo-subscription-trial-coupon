@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { readmeProblems } from './release-review.mjs';
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const project = JSON.parse(fs.readFileSync(path.join(root, 'project.json'), 'utf8'));
@@ -10,6 +11,8 @@ const version = main.match(/^\s*(?:\*\s*)?Version:\s*(\S+)/m)?.[1];
 const packageVersion = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8')).version;
 const stable = readme.match(/^Stable tag:\s*(\S+)/mi)?.[1];
 const internal = main.match(/define\(\s*['"][A-Z_]+VERSION['"]\s*,\s*['"]([^'"]+)/)?.[1];
+const problems = readmeProblems(readme, main.match(/^Plugin Name:\s*(.+)/m)?.[1].trim());
+if (problems.length) throw new Error(problems.join('\n'));
 if (!version || !/^\d+\.\d+\.\d+$/.test(version)) throw new Error('Use a numeric MAJOR.MINOR.PATCH plugin version.');
 if (packageVersion !== version) throw new Error('package.json version does not match the plugin.');
 if (stable !== version) throw new Error(`Stable tag ${stable} does not match plugin version ${version}.`);

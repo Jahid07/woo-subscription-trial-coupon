@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.mjs';
 import { login, assertHealthy } from './helpers.mjs';
 
 const environment = () => JSON.parse(fs.readFileSync(process.env.DEMO_REPORT_PATH || '.cache/test-environment.json', 'utf8'));
@@ -36,6 +36,42 @@ test('@premium a seven-day trial coupon works through subscription checkout', as
   await expect(page).toHaveURL(/order-received/, { timeout: 45_000 });
   await expect(page.locator('.woocommerce-order')).toContainText('The Coffee Club');
   await expect(page.locator('.woocommerce-order')).toContainText('Related subscriptions');
+  await assertHealthy(page);
+});
+
+test('@premium a trial coupon survives refresh and can be removed and reapplied', async ({ page }) => {
+  const available = environment().hasSubscriptions;
+  if (process.env.REQUIRE_PREMIUM_TESTS) expect(available, 'Activate your private Subscriptions copy.').toBe(true);
+  test.skip(!available, 'WooCommerce Subscriptions was not supplied.');
+  await page.goto(`/?add-to-cart=${environment().fixtures.subscriptionProductId}`);
+  await page.goto('/cart/');
+  await page.locator('#coupon_code').fill('plugin-test-free-trial');
+  await page.getByRole('button', { name: 'Apply coupon', exact: true }).click();
+  await expect(page.locator('.cart-discount')).toContainText(/7 Days/i);
+  await expect(page.locator('.cart_totals .order-total .woocommerce-Price-amount').first()).toContainText('£0.00');
+  await page.reload();
+  await expect(page.locator('.cart-discount')).toContainText(/7 Days/i);
+  await expect(page.locator('.cart_totals .order-total .woocommerce-Price-amount').first()).toContainText('£0.00');
+  await page.locator('a.woocommerce-remove-coupon').click();
+  await expect(page.locator('.cart-discount')).toHaveCount(0);
+  await expect(page.locator('.cart_totals .order-total .woocommerce-Price-amount').first()).toContainText('£22.00');
+  await page.locator('#coupon_code').fill('plugin-test-free-trial');
+  await page.getByRole('button', { name: 'Apply coupon', exact: true }).click();
+  await expect(page.locator('.cart-discount')).toContainText(/7 Days/i);
+  await expect(page.locator('.cart_totals .order-total .woocommerce-Price-amount').first()).toContainText('£0.00');
+  await assertHealthy(page);
+});
+
+test('@premium a trial coupon rejects a regular product with its validation message', async ({ page }) => {
+  const available = environment().hasSubscriptions;
+  if (process.env.REQUIRE_PREMIUM_TESTS) expect(available, 'Activate your private Subscriptions copy.').toBe(true);
+  test.skip(!available, 'WooCommerce Subscriptions was not supplied.');
+  await page.goto(`/?add-to-cart=${environment().fixtures.simpleProductId}`);
+  await page.goto('/cart/');
+  await page.locator('#coupon_code').fill('plugin-test-free-trial');
+  await page.getByRole('button', { name: 'Apply coupon', exact: true }).click();
+  await expect(page.getByText('This coupon is only valid if there is a subscription product in the cart.', { exact: true })).toBeVisible();
+  await expect(page.locator('.cart-discount')).toHaveCount(0);
   await assertHealthy(page);
 });
 

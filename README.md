@@ -28,6 +28,16 @@ npm run check:release
 npm run build
 ```
 
-The build creates `dist/woo-subscription-trial-coupon-2.0.1.zip` with a production-only Composer autoloader and verifies development/private files are excluded. Existing WordPress/PHPCompatibility findings are tracked in `phpcs-baseline.json`; checks block increases. Compatibility claims must reflect actual recorded test versions.
+The build creates `dist/woo-subscription-trial-coupon-2.0.2.zip` with a production-only Composer autoloader and verifies development/private files are excluded. Existing WordPress/PHPCompatibility findings are tracked in `phpcs-baseline.json`; checks block increases. Compatibility claims must reflect actual recorded test versions.
 
 See [testing](docs/testing.md), [contributing](CONTRIBUTING.md), and [release process](docs/releases.md).
+
+## Automated verification
+
+```sh
+npm run verify
+# Include the supplied private Subscriptions integration:
+WC_VERSION=latest npm run verify -- --subscriptions --require-premium
+```
+
+This checks code, dependencies, readme/version metadata, PHPUnit, fresh ZIP installation, upgrade from the published baseline, retained settings, browser behavior, fresh PHP/WooCommerce logs, and new Plugin Check findings. Only disposable test databases are reset. Reports and coverage limits are described in [testing](docs/testing.md#automated-verification). GitHub runs the public checks on PRs; premium checkout tests run locally with your private copy. A passing run does not enable publishing or clear existing Plugin Check findings.

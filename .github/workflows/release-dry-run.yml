@@ -26,26 +26,20 @@ jobs:
       - run: npm ci
       - run: composer lint:syntax
       - run: composer lint
-      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:release
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
         with:
           name: release-review-package
-          path: dist/*.zip
+          path: |
+            dist/*.zip
+            .cache/release-review-default/*.json
+            .cache/release-review-default/*.txt
+            .cache/release-review-default/summary.md
+            .cache/browser-logs-default.json
+            .cache/test-environment.json
+            playwright-report/
+            test-results/
+          include-hidden-files: true
           if-no-files-found: error
-      - name: Plugin Check (advisory while legacy findings are addressed)
-        id: plugin-check
-        continue-on-error: true
-        uses: WordPress/plugin-check-action@10857da14b6c2246d15402b3e69f777edcf8c12e # v1
-        with:
-          build-dir: dist/woo-subscription-trial-coupon
-      - name: Record release readiness
-        if: always()
-        env:
-          PLUGIN_CHECK_OUTCOME: ${{ steps.plugin-check.outcome }}
-        run: |
-          {
-            echo '## Release review'
-            echo 'WordPress.org deployment is disabled. This workflow cannot publish.'
-            echo "Plugin Check outcome: $PLUGIN_CHECK_OUTCOME"
-            echo 'Review all findings and recorded integration coverage before a future stable release.'
-          } >> "$GITHUB_STEP_SUMMARY"
