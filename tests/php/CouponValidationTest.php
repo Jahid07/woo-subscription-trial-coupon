@@ -79,4 +79,10 @@ class CouponValidationTest extends WP_UnitTestCase {
 		$this->assertFalse( $this->handler->validate_coupon( true, $rejected ) );
 		$this->assertSame( 'Other validation error', $this->handler->coupon_error_message( 'Other validation error', 100, $other ) );
 	}
+
+	public function test_generic_coupon_errors_without_a_coupon_instance_are_preserved() {
+		add_filter( 'woocommerce_coupon_error', array( $this->handler, 'coupon_error_message' ), 10, 3 );
+		$this->assertSame( 'Please enter a coupon code.', WC_Coupon::get_generic_coupon_error( WC_Coupon::E_WC_COUPON_PLEASE_ENTER ) );
+		$this->assertSame( 'Coupon does not exist.', WC_Coupon::get_generic_coupon_error( WC_Coupon::E_WC_COUPON_NOT_EXIST ) );
+	}
 }

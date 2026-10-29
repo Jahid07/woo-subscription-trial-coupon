@@ -107,7 +107,7 @@ class RedeemCoupon{
 
     
     public function coupon_error_message($err, $err_code, $coupon) {
-		if ( isset( $this->invalid_trial_coupons[ spl_object_hash( $coupon ) ] ) ) {
+		if ( $coupon instanceof WC_Coupon && isset( $this->invalid_trial_coupons[ spl_object_hash( $coupon ) ] ) ) {
             // Replace the default error message with a specific one
             $err = __('This coupon is only valid if there is a subscription product in the cart.', 'WooSubscriptionTrialCoupon');
         }
