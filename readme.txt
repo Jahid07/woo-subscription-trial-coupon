@@ -149,6 +149,10 @@ Yes, the main feature of this plugin is to add a new coupon type that allows you
 6. After applied coupon code
 
 == Changelog ==
+= Unreleased =
+- Fix a PHP deprecation when a trial coupon is rejected for a cart without subscription products.
+- Clear obsolete validation errors when the same coupon is checked again after the cart changes.
+
 = 2.0.1 - September 24, 2024 =
 - Improve code quality
 = 2.0.0 - September 24, 2024 =

@@ -18,6 +18,15 @@ namespace CoderPlus\WooSubscriptionTrialCoupon\FrontEnd;
 use WC_Coupon;
 class RedeemCoupon{
 
+	/**
+	 * Coupons rejected for missing subscription products in this request.
+	 *
+	 * Keep the error state off WooCommerce objects and out of persisted metadata.
+	 *
+	 * @var WC_Coupon[]
+	 */
+	private $invalid_trial_coupons = array();
+
     public function init(){
 
         add_action( 'woocommerce_before_calculate_totals', [$this, 'before_caculate_cart_total'], 15, 1 ); 
@@ -71,6 +80,8 @@ class RedeemCoupon{
 
     
     public function validate_coupon($valid, $coupon) {
+		$coupon_key = spl_object_hash( $coupon );
+		unset( $this->invalid_trial_coupons[ $coupon_key ] );
         if ($coupon->get_discount_type() === 'subscription_trial') {
             $cart_items = WC()->cart->get_cart();
             $has_subscription = false;
@@ -86,8 +97,8 @@ class RedeemCoupon{
             // If no subscription product is found, invalidate the coupon
             if (!$has_subscription) {
                 $valid = false;
-                // Set a custom error code to identify this specific error
-                $coupon->error_code = 'no_subscription_in_cart';
+				// Track this rejection without adding a dynamic WooCommerce property.
+				$this->invalid_trial_coupons[ $coupon_key ] = $coupon;
             }
         }
 
@@ -96,7 +107,7 @@ class RedeemCoupon{
 
     
     public function coupon_error_message($err, $err_code, $coupon) {
-        if (isset($coupon->error_code) && $coupon->error_code === 'no_subscription_in_cart') {
+		if ( isset( $this->invalid_trial_coupons[ spl_object_hash( $coupon ) ] ) ) {
             // Replace the default error message with a specific one
             $err = __('This coupon is only valid if there is a subscription product in the cart.', 'WooSubscriptionTrialCoupon');
         }

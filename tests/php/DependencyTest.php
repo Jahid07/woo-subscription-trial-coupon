@@ -10,6 +10,7 @@ class DependencyTest extends WP_UnitTestCase {
 	}
 
 	public function test_missing_dependencies_show_an_actionable_notice() {
+		set_current_screen( 'plugins' );
 		ob_start();
 		do_action( 'admin_notices' );
 		$notice = ob_get_clean();

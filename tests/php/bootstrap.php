@@ -8,6 +8,7 @@ if ( ! $tests_dir || ! file_exists( $tests_dir . '/includes/functions.php' ) ) {
 define( 'WP_TESTS_PHPUNIT_POLYFILLS_PATH', dirname( __DIR__, 2 ) . '/vendor/yoast/phpunit-polyfills' );
 require_once $tests_dir . '/includes/functions.php';
 tests_add_filter( 'muplugins_loaded', function () {
+    require WP_PLUGIN_DIR . '/woocommerce/woocommerce.php';
     require dirname( __DIR__, 2 ) . '/woo-subscription-trial-coupon.php';
 } );
 require $tests_dir . '/includes/bootstrap.php';
