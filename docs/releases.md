@@ -49,3 +49,5 @@ Plugin Check still reports 16 errors and 18 warnings inherited from the existing
 ## Repeatable release checks
 
 Run `npm run verify` before requesting release approval; add `-- --subscriptions --require-premium` when the private integration is available. The same package runner is automatic on PRs and used by the manual dry run. Review its Markdown/JSON reports, exact tested versions, retained-settings comparison, browser/log results, skipped coverage, and remaining Plugin Check findings. New Plugin Check findings fail automatically; the published baseline is checked with the same pinned checker rather than accepting an increased findings budget. Stable publication remains a separate authorized action.
+
+The **Installable release ZIP** workflow attaches the production plugin ZIP to each stable GitHub release. GitHub’s source archives remain separate. For tags created before this workflow existed, run it manually from the default branch with the existing release tag. It never publishes to WordPress.org or replaces an existing asset.
