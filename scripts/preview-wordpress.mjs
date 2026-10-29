@@ -37,6 +37,10 @@ for (const directory of ['trunk', 'assets']) svn('update', '--set-depth=infinity
 svn('update', '--set-depth=immediates', path.join(workingCopy, 'tags'));
 const target = path.join(workingCopy, 'tags', version);
 if (fs.existsSync(target)) throw new Error(`WordPress.org tag ${version} already exists; it will not be overwritten.`);
+const compare = (a, b) => a.split('.').map(Number).reduce((result, item, index) => result || Math.sign(item - Number(b.split('.')[index])), 0);
+if (fs.readdirSync(path.join(workingCopy, 'tags')).some(tag => /^\d+\.\d+\.\d+$/.test(tag) && compare(tag, version) > 0)) {
+  throw new Error('A newer WordPress.org tag exists; downgrades are refused.');
+}
 execFileSync('rsync', ['-rc', '--delete', `${build}/`, `${workingCopy}/trunk/`]);
 if (fs.existsSync(images)) execFileSync('rsync', ['-rc', '--delete', `${images}/`, `${workingCopy}/assets/`]);
 svn('add', '--force', workingCopy);

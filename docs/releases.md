@@ -5,8 +5,9 @@ WordPress.org SVN is the distribution repository. This GitHub repository is the 
 ## Current state
 
 - Imported published version: 2.0.1.
-- WordPress.org deployment is disabled in `project.json`.
-- The GitHub workflow can build a dry-run package and collect Plugin Check findings. It does not commit to SVN.
+- The native SVN publisher is configured for future published stable GitHub releases; preparation and merges do not publish.
+- Source version 2.0.3 is merged; it has no release tag yet. GitHub 2.0.2 already exists; WordPress.org has not been updated by this work.
+- Manual preview workflows stay read-only. The separate release-published workflow can commit to SVN only after its release guards pass.
 - Existing Plugin Check and coding-standard findings are technical debt, not a clean certification.
 
 ## Manual WordPress.org deployment preview
@@ -27,17 +28,23 @@ Store listing images in `.wordpress-org/`; they map to the top-level SVN `assets
 6. Review Plugin Check findings and compatibility metadata. Fix release-blocking problems before publishing.
 7. Create a numeric Git tag and GitHub release for the reviewed commit after approval. Never reuse an existing release tag for changed code.
 
-## Enable WordPress.org delivery later
+## What triggers publication
 
-After dry-run validation, add a reviewed deployment workflow restricted to stable release tags, pinned deployment actions, and a protected `wordpress-org` GitHub environment. Store the committer username and SVN-specific password in environment secrets, with account 2FA enabled. Verify the tag version and refuse to overwrite existing SVN tags. Deploy the tested production files to trunk and a new SVN tag, confirm the release if enabled, and verify the directory ZIP and update API after WordPress.org's processing/cooldown.
+**Publishing a new stable GitHub release is the publish action.** On GitHub, open Releases > Draft a new release, create a numeric tag such as `2.0.3` from `master`, leave prerelease unchecked, and click **Publish release** when authorized. That release commit must contain the publisher and `wordpressOrgDeploymentEnabled: true`, and its plugin/header/internal/npm/readme versions must match the tag.
 
-The dry-run workflow is intentionally unable to publish. No credentials are needed for development or package review. Future activation of delivery is a separate explicit step.
+Merging a PR, pushing a tag alone, saving a draft, publishing a prerelease, or running the manual preview does not publish to WordPress.org. Installing this workflow does not replay the existing GitHub 2.0.2 release. No 2.0.3 tag or release is created by setup.
+
+The workflow uses GitHub-owned actions pinned to commits and native SVN. It requires the release commit to be part of `master`, refuses existing or newer WordPress.org tags, builds only production files, and synchronizes `.wordpress-org/` images to SVN `assets/`. It commits trunk, the new tag, and listing images together. The SVN password is provided through stdin only to the commit process; it is not included in command arguments or the build/preparation environment.
+
+The `wordpress-org` GitHub environment permits tag deployments only. Existing repository secrets `SVN_USERNAME` and `SVN_PASSWORD` are used only in the publisher step. No extra GitHub approval is required beyond deliberately publishing the stable release. Only trusted maintainers should be allowed to change workflows or publish releases. To stop future runs, disable **Publish to WordPress.org** in Actions. Do not edit or reuse a release tag.
+
+After a commit, the workflow verifies the remote tag's plugin version and Stable tag. If WordPress.org release confirmation is enabled, confirm via its email/Release Management dashboard; public downloads and update checks may take time to refresh. If a run fails after committing, inspect the remote tag before retrying. Do not overwrite an existing SVN tag.
 
 ## 2.0.2 candidate status
 
 The version fields and WordPress.org readme are prepared for 2.0.2. The candidate was tested on WordPress 7.1.4 with WooCommerce 11.2.1 and the supplied Subscriptions 7.7.0; see [testing evidence and limits](testing.md). The latest premium Subscriptions release is unverified.
 
-Plugin Check still reports 16 errors and 18 warnings inherited from the existing package, including localization and admin-output findings. Review and resolve release-blocking findings before stable publication. The existing lint baseline has not been increased. WordPress.org publishing remains disabled, and this candidate has no release tag.
+Plugin Check still reports 16 errors and 18 warnings inherited from the existing package, including localization and admin-output findings. Review and resolve release-blocking findings before stable publication. The existing lint baseline has not been increased. GitHub 2.0.2 was subsequently published. Its WordPress.org publication did not complete. The 2.0.3 source prepares the next release; creating that stable GitHub release will be a separate authorized action.
 
 ## Repeatable release checks
 

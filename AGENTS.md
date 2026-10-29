@@ -8,5 +8,5 @@
 - Keep premium themes/plugins in ignored `.local/` paths. Never commit credentials, customer data, or local overrides.
 - Existing coding findings have a baseline. Do not increase it to hide new findings; explain intentional baseline changes.
 - Do not claim compatibility with dependency versions that have not been tested.
-- WordPress.org deployment is disabled. Do not publish or modify SVN releases during development setup.
+- WordPress.org publication is configured only for published stable GitHub releases. Do not create/publish a release or execute the publisher without explicit user authorization; preparation and merging alone must not publish. The manual preview remains read-only.
 - Build release ZIPs with `npm run build`. A future release must have a new version and matching metadata before deployment.

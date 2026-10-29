@@ -5,5 +5,5 @@
   "port": 8910,
   "publishedBaseline": "2.0.1",
   "baselineDownload": "https://downloads.wordpress.org/plugin/woo-subscription-trial-coupon.2.0.1.zip",
-  "wordpressOrgDeploymentEnabled": false
+  "wordpressOrgDeploymentEnabled": true
 }
