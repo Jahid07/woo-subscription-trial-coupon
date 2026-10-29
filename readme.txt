@@ -3,7 +3,7 @@ Contributors: md-jahidul-islam
 Tags: woocommerce, subscriptions, free trial, coupons, trial period
 Requires at least: 5.9
 Tested up to: 7.1
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 Requires PHP: 7.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -68,7 +68,7 @@ These are demo codes; create your own coupons on your store.
 = Other plugins by CoderPlus =
 
 **Data Privacy Manager for WooCommerce (Premium)**
-Help your team process customer privacy requests associated with GDPR workflows, review approvals, follow up with customers, and track outcomes. Organize permission records, privacy choices, staff access, and customer-facing steps.
+Data Privacy Manager is a WooCommerce GDPR plugin that helps you process personal data requests and manage customer permissions and privacy choices. Give your team tools to review requests, manage approvals, follow up with customers, and track outcomes. Keep privacy work organized with permission records, staff access controls, and clear steps for customers.
 [View on WooCommerce.com](https://woocommerce.com/products/data-privacy-manager/)
 
 **Role-Based Analytics for WooCommerce (Premium)**
@@ -123,6 +123,9 @@ Our available test copy is version 7.7.0. We welcome staging-test reports from u
 6. Cart totals after applying the coupon.
 
 == Changelog ==
+
+= 2.0.3 =
+* Update the Data Privacy Manager description in the Other plugins by CoderPlus section.
 
 = 2.0.2 =
 * Fix a PHP deprecation when a trial coupon is rejected for a cart without subscription products.
