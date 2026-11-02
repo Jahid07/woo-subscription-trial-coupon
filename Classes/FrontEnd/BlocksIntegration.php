@@ -59,7 +59,7 @@ class BlocksIntegration implements IntegrationInterface {
 			$dependencies[] = 'wc-blocks-integration';
 		}
 		wp_register_script( 'wcsc-trial-blocks', WCSC_PLUGIN_URL . 'assets/js/trial-blocks.js', $dependencies, (string) filemtime( dirname( dirname( __DIR__ ) ) . '/assets/js/trial-blocks.js' ), true );
-		wp_set_script_translations( 'wcsc-trial-blocks', 'WooSubscriptionTrialCoupon' );
+		wp_set_script_translations( 'wcsc-trial-blocks', 'woo-subscription-trial-coupon' );
 	}
 
 	/**
@@ -122,8 +122,8 @@ class BlocksIntegration implements IntegrationInterface {
 			return $data;
 		}
 		$data[] = array(
-			'name'                                     => __( 'First payment', 'WooSubscriptionTrialCoupon' ),
-			'value'                                    => '<span class="wcsc-payment-dates"><span class="screen-reader-text">' . esc_html__( 'Before trial coupon:', 'WooSubscriptionTrialCoupon' ) . '</span><span class="wcsc-payment-before">' . esc_html( $dates['before'] ) . '</span> <span class="screen-reader-text">' . esc_html__( 'With trial coupon:', 'WooSubscriptionTrialCoupon' ) . '</span><strong>' . esc_html( $dates['after'] ) . '</strong></span>',
+			'name'                                     => __( 'First payment', 'woo-subscription-trial-coupon' ),
+			'value'                                    => '<span class="wcsc-payment-dates"><span class="screen-reader-text">' . esc_html__( 'Before trial coupon:', 'woo-subscription-trial-coupon' ) . '</span><span class="wcsc-payment-before">' . esc_html( $dates['before'] ) . '</span> <span class="screen-reader-text">' . esc_html__( 'With trial coupon:', 'woo-subscription-trial-coupon' ) . '</span><strong>' . esc_html( $dates['after'] ) . '</strong></span>',
 			'className'                                => 'wcsc-payment-detail',
 			'raw_key'                                  => 'wcsc_first_payment',
 			'hidden'                                   => true,

@@ -90,9 +90,9 @@ class TrialPrice {
 		if ( $before === $after ) {
 			return $html;
 		}
-		$line = '<div class="first-payment-date wcsc-first-payment"><small>' . esc_html__( 'First payment:', 'WooSubscriptionTrialCoupon' ) .
-			' <span class="screen-reader-text">' . esc_html__( 'Before trial coupon:', 'WooSubscriptionTrialCoupon' ) . '</span><del>' . esc_html( $before ) . '</del> ' .
-			'<span class="screen-reader-text">' . esc_html__( 'With trial coupon:', 'WooSubscriptionTrialCoupon' ) . '</span><span>' . esc_html( $after ) . '</span></small></div>';
+		$line = '<div class="first-payment-date wcsc-first-payment"><small>' . esc_html__( 'First payment:', 'woo-subscription-trial-coupon' ) .
+			' <span class="screen-reader-text">' . esc_html__( 'Before trial coupon:', 'woo-subscription-trial-coupon' ) . '</span><del>' . esc_html( $before ) . '</del> ' .
+			'<span class="screen-reader-text">' . esc_html__( 'With trial coupon:', 'woo-subscription-trial-coupon' ) . '</span><span>' . esc_html( $after ) . '</span></small></div>';
 		return preg_replace_callback(
 			'/<div class="first-payment-date">.*?<\/div>/s',
 			static function () use ( $line ) {
@@ -193,7 +193,7 @@ class TrialPrice {
 		return array(
 			'before'    => $before,
 			'amount'    => $amount,
-			'trial'     => sprintf( /* translators: %s: trial duration, such as 7 days. */ __( '%s free trial', 'WooSubscriptionTrialCoupon' ), $unit ),
+			'trial'     => sprintf( /* translators: %s: trial duration, such as 7 days. */ __( '%s free trial', 'woo-subscription-trial-coupon' ), $unit ),
 			'recurring' => $renewal,
 		);
 	}
@@ -212,8 +212,8 @@ class TrialPrice {
 			return $html;
 		}
 		$today = 0 < $data['before'] ? wc_format_sale_price( $data['before'], 0 ) : wc_price( 0 );
-		return '<span class="wcsc-trial-price">' . wp_kses_post( $today ) . ' <span>' . esc_html__( 'today', 'WooSubscriptionTrialCoupon' ) . '</span><small>' .
+		return '<span class="wcsc-trial-price">' . wp_kses_post( $today ) . ' <span>' . esc_html__( 'today', 'woo-subscription-trial-coupon' ) . '</span><small>' .
 			'<span class="wcsc-trial-badge">' . esc_html( $data['trial'] ) . '</span><br>' .
-			wp_kses_post( sprintf( /* translators: %s: recurring subscription price and billing period. */ __( 'Then %s', 'WooSubscriptionTrialCoupon' ), $data['recurring'] ) ) . '</small></span>';
+			wp_kses_post( sprintf( /* translators: %s: recurring subscription price and billing period. */ __( 'Then %s', 'woo-subscription-trial-coupon' ), $data['recurring'] ) ) . '</small></span>';
 	}
 }

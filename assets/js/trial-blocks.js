@@ -15,11 +15,11 @@
             var data = details(extensions);
             if (!data) return value;
             // Only the supported <price/> component is interpolated by WooCommerce.
-            return '<price/> → ' + data.today + ' ' + __('today', 'WooSubscriptionTrialCoupon') +
-                ' · ' + __('Then', 'WooSubscriptionTrialCoupon') + ' ' + data.recurring;
+            return '<price/> → ' + data.today + ' ' + __('today', 'woo-subscription-trial-coupon') +
+                ' · ' + __('Then', 'woo-subscription-trial-coupon') + ' ' + data.recurring;
         },
         cartItemPrice: function (value, extensions) {
-            return details(extensions) ? '<price/> ' + __('today', 'WooSubscriptionTrialCoupon') : value;
+            return details(extensions) ? '<price/> ' + __('today', 'woo-subscription-trial-coupon') : value;
         }
     });
 }());
