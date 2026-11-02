@@ -3,16 +3,18 @@ Contributors: md-jahidul-islam
 Tags: woocommerce, subscriptions, free trial, coupons, trial period
 Requires at least: 5.9
 Tested up to: 7.1
-Stable tag: 2.0.3
+Stable tag: 3.0.0
 Requires PHP: 7.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Offer custom free-trial periods for WooCommerce subscription products with trial coupons and optional sign-up fee discounts.
+Create free trial coupons for WooCommerce Subscriptions. Show trial periods, today’s payment, and recurring prices in classic and block checkout.
 
 == Description ==
 
 Free Trial Coupon for WooCommerce Subscriptions lets you offer a different free-trial period through a coupon code. Create a "Subscription Trial" coupon, choose the trial length and period, and let customers apply it when signing up for a subscription.
+
+Help customers understand their subscription offer before they place an order. For supported trial coupons, the cart and checkout show the trial period, what is due today, the recurring price, and the first payment date. Works with classic cart and checkout pages and the WooCommerce Cart and Checkout blocks.
 
 Use trial coupons for subscription promotions, introductory offers, and extended trials. You can also add a trial period to WooCommerce Subscriptions' fixed or percentage sign-up fee discount coupons.
 
@@ -22,7 +24,10 @@ Use trial coupons for subscription promotions, introductory offers, and extended
 * Set the free-trial length in days, weeks, months, or years.
 * Add trial settings to "Sign-Up Fee Discount" and "Sign-Up Fee % Discount" coupons.
 * Trial handling for simple subscriptions and subscription variations.
-* Display the coupon's trial period in cart totals.
+* Show the trial period with a clear green badge for supported trial coupons.
+* Display today’s subscription payment alongside the recurring price.
+* Compare first payment dates before and after the trial coupon.
+* Support WooCommerce Cart and Checkout blocks as well as classic pages.
 * Reject trial-only coupons when the cart contains no subscription products.
 
 Trial-only coupons do not discount sign-up fees. This plugin does not add renewal-payment discounts.
@@ -34,15 +39,15 @@ Install and activate both:
 1. [WooCommerce 6.5 or greater](https://wordpress.org/plugins/woocommerce/).
 2. [WooCommerce Subscriptions 6.7 or greater](https://woocommerce.com/products/woocommerce-subscriptions/) (paid extension, purchased separately).
 
-These are the existing minimum requirements; they are not a claim that every version combination has been tested.
-
 = Compatibility and community testing =
 
-Version 2.0.2 was tested with WordPress 7.1.4, WooCommerce 11.2.1, WooCommerce Subscriptions 7.7.0, and PHP 8.3.32. Verified scenarios include a seven-day trial on a simple subscription using the classic cart and checkout, coupon refresh/removal/reapplication, and rejection on a regular-product cart.
+Version 3.0.0 was checked with WooCommerce 11.2.1, WooCommerce Subscriptions 7.7.0, and PHP 8.3.32, using WordPress 7.1.3 for classic pages and WordPress 7.1.4 for Cart and Checkout blocks. Checks covered applying and removing a seven-day trial coupon, quantity changes, mixed carts, mobile checkout, and a local manual subscription checkout.
 
-We do not currently have access to the latest WooCommerce Subscriptions release, so compatibility with that release has not yet been verified. If you have a newer version and would like to contribute, please test the release candidate on a staging site and [share your versions, steps, and results on GitHub](https://github.com/Jahid07/woo-subscription-trial-coupon/issues). Please do not upload paid plugin files, license keys, or customer data.
+The enhanced price and date comparisons apply to a single Subscription Trial coupon on subscriptions without a sign-up fee or synchronized billing. Other combinations keep the standard WooCommerce Subscriptions display. A free trial does not necessarily make the entire order free: sign-up fees, other products, shipping, or taxes may still be payable.
 
-[Testing details and known coverage limits](https://github.com/Jahid07/woo-subscription-trial-coupon/blob/master/docs/testing.md) are maintained in the development repository. Automatic payment gateways, renewals, block checkout, subscription variations, and sign-up fee coupon combinations are not covered by the latest release checks.
+Our available WooCommerce Subscriptions test copy is 7.7.0. If you have a newer version, please test on staging and [share your versions, steps, and results on GitHub](https://github.com/Jahid07/woo-subscription-trial-coupon/issues). Please do not upload paid plugin files, license keys, or customer data.
+
+[Testing details and known coverage limits](https://github.com/Jahid07/woo-subscription-trial-coupon/blob/master/docs/testing.md) are maintained in the development repository. Automatic payment gateways, actual renewal charges, subscription variations, and sign-up fee coupon combinations have not been verified in the 3.0.0 checks.
 
 = Getting started =
 
@@ -54,21 +59,12 @@ We do not currently have access to the latest WooCommerce Subscriptions release,
 
 = Demo =
 
-[Explore the demo store](https://demo.coderplus.co/woo-subscription-trial-coupon/). Example coupon codes on that site:
-
-* `TRIALDESIGN`: one-month trial for the graphic design subscription.
-* `TRIALSUPPORT`: five-day trial for the tech support subscription.
-* `TRIALMEDITATE`: two-week trial for weekly meditation classes.
-* `TRIALBOOK`: one-year trial for the virtual book club.
-* `TRIALLANG`: percentage sign-up fee discount for online language lessons.
-* `TRIALSEO`: fixed sign-up fee discount for monthly SEO audit reports.
-
-These are demo codes; create your own coupons on your store.
+[Explore the demo store](https://demo.coderplus.co/woo-subscription-trial-coupon/) for example trial offers. Create and test your own coupon codes on your store.
 
 = Other plugins by CoderPlus =
 
 **Data Privacy Manager for WooCommerce (Premium)**
-Data Privacy Manager is a WooCommerce GDPR plugin that helps you process personal data requests and manage customer permissions and privacy choices. Give your team tools to review requests, manage approvals, follow up with customers, and track outcomes. Keep privacy work organized with permission records, staff access controls, and clear steps for customers.
+Data Privacy Manager is a WooCommerce GDPR plugin that helps you process personal data requests and manage customer permissions and privacy choices. Review requests, manage approvals, follow up with customers, and track outcomes with permission records and staff access controls.
 [View on WooCommerce.com](https://woocommerce.com/products/data-privacy-manager/)
 
 **Role-Based Analytics for WooCommerce (Premium)**
@@ -89,8 +85,6 @@ Set a separate logo for Divi's fixed navigation header when visitors scroll.
 2. Go to **Plugins > Add New** and search for **Free Trial Coupon for WooCommerce Subscriptions**, then install and activate it. Alternatively, upload the plugin ZIP using **Plugins > Add New > Upload Plugin**.
 3. Go to **Marketing > Coupons** to create a trial coupon.
 
-For manual installation, extract the ZIP and upload the `woo-subscription-trial-coupon` folder to `/wp-content/plugins/`, then activate it from **Plugins**.
-
 == Frequently Asked Questions ==
 
 = Does it work without WooCommerce Subscriptions? =
@@ -109,20 +103,41 @@ The plugin adds trial fields to WooCommerce Subscriptions' fixed and percentage 
 
 No. The plugin focuses on the initial trial period and sign-up fee coupon settings; it does not add renewal discounts.
 
+= Does it support WooCommerce Cart and Checkout blocks? =
+
+Yes. Version 3.0.0 adds trial price and first payment information to the native Cart and Checkout blocks. Classic cart and checkout pages are also supported. The blocks use WooCommerce’s extension APIs and retain the standard layout.
+
+= Why does the cart show £0 today and a monthly price? =
+
+For an eligible subscription without a sign-up fee, the trial coupon can make the initial subscription payment zero. The recurring price still applies after the trial. Other items, shipping, taxes, or fees can affect the order total; always review the checkout totals. The currency follows your store settings.
+
+= Does a trial coupon change the first payment date? =
+
+The trial period affects when the subscription’s first payment is due. For supported coupons, the plugin shows the original and updated first payment dates using WooCommerce Subscriptions’ calculated schedule. The standard subscription schedule remains the source of the payment dates.
+
+= Will my existing trial coupons continue to work after updating? =
+
+Version 3.0.0 keeps the existing coupon type and trial length and period settings. No coupon recreation is required. Back up your store and try the update on staging before updating a live subscription store.
+
 = Have you tested the latest WooCommerce Subscriptions release? =
 
 Our available test copy is version 7.7.0. We welcome staging-test reports from users with newer versions. See the compatibility section above for the exact tested stack and contribution link.
 
 == Screenshots ==
 
-1. Open Marketing > Coupons in the WordPress dashboard.
-2. Create a new coupon.
-3. Select the "Subscription Trial" coupon type.
-4. Enter the free-trial length and period.
-5. Cart totals before applying the coupon.
-6. Cart totals after applying the coupon.
+1. Create a Subscription Trial coupon: choose a code, set the free-trial length and period, and publish.
+2. Compare a subscription before and after a trial coupon: £0 due today in this example, with the recurring price and first payment dates clearly shown.
+3. WooCommerce Cart block showing the trial badge, initial payment, and recurring subscription totals.
+4. WooCommerce Checkout block showing the trial offer, first payment date comparison, and recurring payment summary.
 
 == Changelog ==
+
+= 3.0.0 =
+* See the trial offer in WooCommerce Cart and Checkout blocks as well as classic pages.
+* Understand what is due today and what will be charged after the trial with clearer subscription pricing and a free-trial badge.
+* Compare the first payment date before and after applying a supported trial coupon.
+* Keep the standard subscription display for sign-up fees, synchronized billing, and other unsupported comparison cases.
+* Refresh plugin icons, banners, setup screenshots, and customer guidance.
 
 = 2.0.3 =
 * Update the Data Privacy Manager description in the Other plugins by CoderPlus section.
@@ -136,13 +151,7 @@ Our available test copy is version 7.7.0. We welcome staging-test reports from u
 = 2.0.1 - September 24, 2024 =
 - Improve code quality
 = 2.0.0 - September 24, 2024 =
-- Refactored codebase to Object-Oriented Programming (OOP) style for better maintainability and scalability.
-- Restructured plugin files to follow modern WordPress standards, improving organization and clarity.
-- Added full WordPress localization support, enabling translation into multiple languages.
-- Improved security with proper escaping and sanitization throughout the plugin to prevent vulnerabilities.
-- Enhanced language support, including text domain setup for easier translation and integration with WordPress language packs.
-- Introduced support for WordPress Plugin Dependencies, ensuring required plugins are automatically detected and prompted for installation.
-- Optimized performance with better handling of coupon-related actions and WooCommerce integrations.
+* Refactor the plugin into classes and improve localization, security, dependency detection, and WooCommerce integration.
 = 1.0.1 - Octobor 26, 2019 =
 - Improve code
 = 1.0.0 - Octobor 25, 2019 =
