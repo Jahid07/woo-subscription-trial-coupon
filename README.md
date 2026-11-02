@@ -32,7 +32,7 @@ npm run check:release
 npm run build
 ```
 
-The build creates `dist/woo-subscription-trial-coupon-2.0.3.zip` with a production-only Composer autoloader and verifies development/private files are excluded. Existing WordPress/PHPCompatibility findings are tracked in `phpcs-baseline.json`; checks block increases. Compatibility claims must reflect actual recorded test versions.
+The build creates `dist/woo-subscription-trial-coupon-3.0.0.zip` with a production-only Composer autoloader and verifies development/private files are excluded. Existing WordPress/PHPCompatibility findings are tracked in `phpcs-baseline.json`; checks block increases. Compatibility claims must reflect actual recorded test versions.
 
 See [testing](docs/testing.md), [contributing](CONTRIBUTING.md), and [release process](docs/releases.md).
 

@@ -28,6 +28,7 @@ class RedeemCoupon{
 	private $invalid_trial_coupons = array();
 
     public function init(){
+        ( new TrialPrice() )->init();
 
         add_action( 'woocommerce_before_calculate_totals', [$this, 'before_caculate_cart_total'], 15, 1 ); 
          // Add custom validation for the 'trial_test' coupon type

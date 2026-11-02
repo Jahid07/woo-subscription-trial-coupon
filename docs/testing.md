@@ -76,3 +76,11 @@ Reports are in `.cache/verification.json`, `.cache/npm-audit.json` (including be
 GitHub runs package verification on PHP 8.3 and public browser/PHP regressions on PHP 8.4 for every PR and push to the default branch. It uploads reports and displays the release summary. The manual release dry run uses the same package runner. Premium files stay local and are never included in artifacts or release ZIPs. WordPress.org publishing stays disabled.
 
 Automation validation on 2026-10-29: the installed production ZIP passed all nine Chromium cases on WordPress 7.1.4 / PHP 8.3.32 / WooCommerce 11.2.1 / Subscriptions 7.7.0. Fresh browser/PHP/WooCommerce error checks found no problems. Fresh installation, retained-settings upgrade, readme/version checks, and Plugin Check comparison passed; 34 inherited findings remain and stable publication stays disabled.
+
+The optional Blocks display check runs with `WP_BLOCKS_TESTS=1 WP_BASE_URL=http://localhost:8918 npx playwright test tests/e2e/blocks.spec.mjs`. It requires the private Subscriptions extension, native Cart/Checkout block pages, the seeded trial coupon, and mixed purchases enabled on that isolated test shop. It verifies price formatting, quantity updates, coupon removal, mobile checkout and mixed carts; classic tests remain separate.
+
+## 3.0.0 display checks — 2026-11-02
+
+Classic pages (WordPress 7.1.3) and native Cart/Checkout blocks (WordPress 7.1.4) were checked with WooCommerce 11.2.1, Subscriptions 7.7.0, and PHP 8.3.32. Checks covered apply/remove, quantity changes, mixed carts, desktop/mobile display, first payment dates, and local manual subscription checkout. Fresh browser-flow PHP/WooCommerce logs had no new errors. Date checks covered different start dates and the sign-up fee display fallback.
+
+With Twenty Twenty-Five 1.5, WooCommerce also requested `cart/undefinedwc/store/v1/cart` and received HTTP 404. The same error was reproduced with Trial Coupon fully deactivated; its initiator was WooCommerce’s cart store `refreshCartItems`. A separate WooCommerce `findDOMNode` warning was reproduced with our block script disabled. Neither vendor issue was changed here. Automatic payments, real renewal charges, variations, combined coupons, and newer Subscriptions releases remain unverified.
